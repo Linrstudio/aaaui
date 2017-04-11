@@ -1,0 +1,40 @@
+<div>
+	<div class="pbody" data-title="{:L('COLLECT')}" data-edit-title="{{lang edit} {lang forward}}" data-width="520" data-css-class="publish">
+		<form id="forwarding_item_form" data-url="" next-url="" method="post"> 
+			<div class="forwarded clearfix">
+				<div class="cover-image">
+					<div class="thumbnail">
+						<div class="img-thumb"><img src="{$share['image_path']}{:C('MIDDLE_PIC')}"></div>
+					</div>
+				</div>
+
+				<div class="board">
+					<label>{:L('ALBUM2')}</label>
+					<input type="hidden" id="share_id" name="share_id" value=""/>
+					<div class="forwarding_div" id="forwarding_div" data-uid="{{share.user_id}}" data-sid=''>
+					<div class="category_select_list" data-init="0">
+			    			<a href="javascript:void(0);" class="select_btn" data-action="albumItemPopup" data-params="popup">
+		    					<input id="ablum_select_id" name="album_id" type="hidden" value="1" class="album_select_id"/>
+		    					<span class="album_select_title">{:L('SELECT_ALBUM')}</span> 
+		    					<span class="caret ml10"></span>
+		    				</a>
+							<div class="popup">
+								<ul class="atlas-content"></ul>
+							</div>
+		           	</div>
+					
+				</div>
+				</div>
+				<div class="describe">
+					<label>{:L('DESCRIBE')}</label>
+					<textarea id="intro" name='intro' placeholder="{:L('TIP14')}"></textarea>
+				</div>
+
+			</div>
+			<div class="foot">
+	    		<button type="submit" id="editorsubmit" class="btn btn-success">{:L('CONFIRM_SUBMIT')}</button>
+	    		<div id="ajax_share_message" class="error"></div>
+	    	</div>
+	    </form>
+	</div>
+</div>

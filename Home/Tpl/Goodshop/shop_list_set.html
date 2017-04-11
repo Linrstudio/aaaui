@@ -1,0 +1,57 @@
+<include file="Goodshop:shopHeader" />
+
+<div class="personal-homepage">
+	<div class="shopset_content">
+		<div class="alert alert-info">
+			<strong>服务项目设置</strong>
+		</div>
+		<form id="project_form" class="form-horizontal">
+			<input type="hidden" name="shop_id" value="{$shop_id}">
+			<fieldset>				
+				<div class="control-group">
+					<label class="control-label">服务名称：</label>
+					<div class="controls">
+						<input type="text" name="project_name" id="project_name">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">价格：</label>
+					<div class="controls">
+						<input type="text" name="project_price" id="project_price">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label"></label>
+					<div class="controls">
+						<button id='submit' type="submit" class="btn btn-success">提交申请</button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</div>
+
+</div><!-- .container -->
+
+<include file="Common:footer" />
+
+<script type="text/javascript">
+$('#submit').click(function() {
+	$.ajax({
+		url: '{:U('Goodshop/shop_list_set')}',
+		type: 'post',
+		data: $('#project_form').serialize(),
+		dataType: 'json',
+		success: function(result){
+	   	  if (result.success) {
+              showSuccess(result.message);
+              window.location = "{:U('Goodshop/shop_list',array('shop_id'=> $shop_id))}";
+          }else{
+              showError(result.message); 
+          };
+		}
+	})
+	return false;
+});
+	
+</script>

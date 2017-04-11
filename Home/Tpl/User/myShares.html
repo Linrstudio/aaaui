@@ -1,0 +1,27 @@
+<include file="User:userHeader" />
+<div class="clearfix container">
+  <div id="waterfall_outer" data-fullscreen="0">
+    <div id="waterfall" class="masonry clearfix" data-animated="0" data-pin-width="250">
+    <eq name="p" value="1">
+      <eq name="currentUser['user_id']" value="$user['user_id']">
+        <div class="pin no-border">
+          <a class="addpinrep" href="javascript:void(0);" data-action="openPublishAlbumDialog" title="{:L('ACQUISITION_TOOLS')}">
+            <i></i>
+            <span>
+              {:L('ADD_ALBUM')}
+            </span>
+          </a>
+        </div>
+      </eq>
+    </eq>
+      <include file="Waterfall:pin"/>
+    </div>
+  </div>
+  <div class="container">
+    <div id="loadingPins" class="text_c"><img src="__PUBLIC__/Img/puzzle32.gif"></div>
+  </div>
+  <div class="hide">
+    {$show}
+  </div>
+</div>
+<include file="Common:footer" />

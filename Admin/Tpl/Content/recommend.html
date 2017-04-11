@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <title>控制面板</title>
+  <include file="Common:intoHead" />
+</head>
+<body>
+  <div class="tablebox">
+   <table class="table table-striped">
+    <thead>
+      <tr>
+        <th width="150">用户ID</th>
+        <th width="200">分类标题</th>
+        <th width="80">专辑ID</th>
+        <th width="80">是否显示</th>
+        <th width="80">修改时间</th>
+        <th width="80">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+     <volist name="recommends" id="recommend" key='k'>
+      <tr>
+        <td>{$recommend.user_ids}</td>
+        <td>{$recommend.title}</td>
+        <td>{$recommend.album_ids}</td>
+        <td>
+          <elt name="k" value="3">
+            <eq name="recommend.is_active" value="0">
+              <a href="{:U('Content/set_recommend',array('recommend_id'=>$recommend['recommend_id'],'do'=>'enable'))}">启用</a>
+            <else/>
+              <a href="{:U('Content/set_recommend',array('recommend_id'=>$recommend['recommend_id'],'do'=>'disable'))}">禁用</a>
+            </eq>
+          </elt>
+        </td>
+        <td>{$recommend.create_time|friendlyDate}</td>
+        <td>
+          <a href="{:U('Content/edit_recommend',array('act'=>'edit','recommend_id'=>$recommend['recommend_id']))}">编辑</a>
+        </td>
+      </volist>
+    </tbody>
+  </table>
+  <div class="pagination pagination-centered">{$show}</div>
+  <form action="{:U('Content/add_recommend')}" method="post">
+      用户id<input type="input" name="user_ids"/>
+      标题<input type="input" name="title"/>
+      专辑id<input type="input" name="album_ids"/>
+      <input type="submit" value="提交"/>
+  </form>
+</div>
+</body>
+</html>

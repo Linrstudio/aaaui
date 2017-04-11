@@ -1,0 +1,64 @@
+
+	<include file="User:userHeader" />
+
+
+<div class="clearfix container">
+	<div class="messages">
+		<div class="alert alert-info">
+			<strong>{:L('USER_BASIC_SETUP')}</strong>
+		</div>
+		<form id="update_userinfo" class="form-horizontal">
+			<fieldset>
+				<div class="control-group">
+					<label class="control-label">{:L('GRAPHICS_SETTINGS')}</label>
+					<div class="controls">
+						<button type="button" class="btn" data-params="{$user['avatar_local']}" data-action="openAvatar">{:L('SET_HEAD')}</button>
+						<span class="help-block">{:L('TIP23')}</span>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label">{:L('USER_NICKNAME')}</label>
+					<div class="controls">
+						<input id="nickname" type="text" name="nickname" value="{$user['nickname']}">
+						<span class="help-block">{:L('TIP7')}</span>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label">{:L('GENDER')}</label>
+					<div class="controls">
+						<input type="radio" name="gender" id="optionsRadios1" value="0"  <php> echo $user['gender']==0?'checked':''</php>> {:L('MAN')} 
+						<input type="radio" name="gender" id="optionsRadios2" value="1" <php> echo $user['gender']==1?'checked':''</php>> {:L('WOMAN')} 
+						<input type="radio" name="gender" id="optionsRadios3" value="null" <php> echo ($user['gender']!=0&&$user['gender']!=1)?'checked':''</php>> {:L('NOT_SET')} 
+					</div>
+					</div>
+					<div class="control-group" id="guoshengli">
+						<label class="control-label">{:L('REGION')}</label>
+						<div class="controls">
+							<select id="province" class="prov" name="province">
+							</select>&nbsp;&nbsp;
+							<select id="city" class="city" name="city">
+							</select>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">{:L('USER_INTRODUCE')}</label>
+						<div class="controls">
+							<textarea id="bio" name="bio">{$user['bio']}</textarea>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"></label>
+						<div class="controls">
+							<button type="submit" class="btn btn-success">{:L('CONFIRM_SUBMIT')}</button>
+							<span id="ajax_message" class="error"></span>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+
+
+	<include file="Common:footer" />

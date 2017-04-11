@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>{:L('SLOGAN')}</title>
+	<link rel="icon" href="/favicon.ico" href="/favicon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" href="__PUBLIC__/Img/logo_small.png" type="image/x-icon" />
+	<include file="Common:resources" />
+</head> 
+<body class="register">
+	
+	<div id="header">
+		<div class="menu_nav" style="z-index: 1000; position: static; top: 28px;">
+			<div class="container clearfix">
+				<div class="logo">
+					<a href="/">
+						<img src="__PUBLIC__/Img/logo.png">
+					</a>
+				</div><!-- .logo -->
+
+				<h1 class="welcome">{:L('SLOGAN3')}</h1>		
+			</div>
+		</div><!-- .menu_nav -->
+		<div class="mobile_nav clearfix">
+			<div class="container">			
+				<div class="logo_mobile">
+					<a href="/"><img src="__PUBLIC__/Img/logo_mobile.png" alt="" /></a>
+				</div>	
+				<a id="menu_button" href="javascript:void(0)"></a>
+			</div>
+			<div id="user_menu">
+				<div class="account clearfix">
+					<div class="container">			
+						<a class="login" data-action="openLoginDialog" href="javascript:void(0);">{:L('LOGIN')}</a>
+						<a class="register" href="{:U('Account/register')}">{:L('REGISTERED')}</a>
+					</div>
+				</div>
+				<form class="navbar-search" action="{:U('Index/search')}" method="post" enctype="application/x-www-form-urlencoded">
+					<div class="container">		
+						<input type="text" name="keyword" class="search-query" placeholder="{:L('TIP26')}" value="{$keyword}">
+						<input type="hidden" name="type" value="{$type}"/><!-- 当前的搜索类型 -->
+						<input class="search_button" type="submit" />
+					</div>
+				</form>
+				<div class="android_download">
+					<div class="container">	
+						<a href="http://test.diuzhuan.com/diuzhuan.apk">下载Android手机客户端</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!-- #header -->
+
+	<div id="main">
+		<div class="content-inner container clearfix">
+				
+			<form class="form-horizontal" id="login_form">
+				<h1>{:L('USER_LOGIN')}</h1>
+				<div class="control-group">
+					<label class="control-label">{:L('EMAIL')}</label>
+					<div class="controls clearfix">
+						<input type="text" name="email" id="email">
+						<span class="help-block" style="display:none;">eg：example@example.com。</span>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">{:L('USER_PASSWORD')}</label>
+					<div class="controls">
+						<input type="password" name="password" id="password">
+					</div>
+				</div>
+				<div class="control-group" style="display:none;"><!-- 注释忘记密码和下次自动登录功能 -->
+		            <label class="control-label"></label>
+		            <div class="controls">
+		               	<label class="checkbox">
+			                <input type="checkbox" checked="checked" value="1" name="is_remember" id="is_remember">
+			                {:L('AUTOMATIC_LOGIN')}
+			                <a class="error" href="#">{:L('FORGOT_PASSWORD')}</a>
+			            </label>
+		            </div>
+		        </div>
+				<div class="control-group">
+					<label class="control-label"></label>
+					<div class="controls">
+						<button id="submit" class="btn btn-success" type="submit">{:L('LOGIN')}</button>						
+					</div>
+				</div>
+			</form>
+
+			<div class="aside">
+				<p>{:L('TIP2')}</p>
+				<button class="btn" type="submit" onClick="location.href='{:U('Account/register')}'">{:L('REGISTERED')}</button>
+			</div><!-- .aside -->
+
+		</div><!-- .content-inner -->
+	</div><!-- #main -->
+
+	<div class="footer">
+		<div class="container text-overflow">
+			<div class="mediumtxt desc pull-left">
+				<p class="pull-left"><a href="/">{:L('THROW_BRICK')}</a> {:L('SLOGAN2')}</p>
+			</div>
+			<ul class="footer-nav pull-right">
+				<li><a href="#">{:L('USER_AGREEMENT')}</a></li>
+				<li><a href="#">{:L('ABOUT_BRICK')}</a></li>
+				<li><a href="#">{:L('CONTACT_US')}</a></li>
+			</ul>
+		</div>
+	</div>
+	<a id="BackToTop" href="#" title="{:L('BACK_TO_TOP')}"><span></span></a>
+
+
+	<script type="text/javascript">
+		$(function(){
+			//实时监听邮箱输入格式是否符合要求
+			var email_true = false;
+			$('#email').bind('input propertychange', function() {	
+				var email = $(this).val();
+				var isemail=/^\w+([-\.]\w+)*@\w+([\.-]\w+)*\.\w{2,4}$/;
+
+				
+				if(isemail.test(email)){	//判断已输入内容格式是否正确
+					email_true = true;	
+				}
+				if(email_true){		//如果格式正确，再通过ajax对服务器进行访问判断邮箱是否存在
+					var email_val = $(this).val();
+					$.ajax({
+						url: '/Account/reg_email',
+						type: 'get',
+						data: 'email='+ email_val,
+						dataType: 'json',
+						success: function(result){
+
+							if(isemail.test(email)){
+								if(result[0]){		//邮箱不存在
+									$('#email').parent().children('.help-block').show().removeClass('yes').html('{:L('TIP3')}<a href="#">{:L('TIP4')}</a>');
+								}
+								if(!result[0]){		//邮箱可登陆
+									$('#email').parent().children('.help-block').show().addClass('yes').html('');	
+								}	
+								email_true = true;			
+							}else{
+								if(email_true){		//邮箱格式不正确
+									$('#email').parent().children('.help-block').show().removeClass('yes').html('{:L('TIP5')}example@example.com');	
+								}
+								return false;
+							}									
+						}
+					});	
+				}
+				
+			});
+		});
+
+		$('#submit').click(function() {
+			$.ajax({
+              url: "{:U('Account/login')}",
+              type: 'post',
+              dataType: 'json',
+              data: $('#login_form').serialize(),
+              success: function(a){
+                  if (!0 === a.success) return show_message("success", a.message, !1, 0), setTimeout(function () {
+	                    window.location = '/'
+	                }, 1E3), !0;
+	                show_message("error", a.message, !1, 0);
+	                return !1
+              }
+          });
+		  return false;
+		});		
+	</script>
+
+	<script type="text/template" 
+		id="data-tips"		
+		data-required-field="{:L('REQUIRED_FIELD')}"
+		data-vcode_wrong="{:L('VCODE_WRONG')}"
+		data-not_valid="{:L('NOT_VALID')}"
+		>
+	</script>			
+
+</body>
+</html>

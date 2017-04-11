@@ -1,0 +1,342 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>{:L('SLOGAN')}</title>
+	<link rel="icon" href="/favicon.ico" href="/favicon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" href="__PUBLIC__/Img/logo_small.png" type="image/x-icon" />
+	<include file="Common:resources" />
+</head> 
+<body id="body" class="register">
+	
+	<div id="header">
+		<div class="menu_nav" style="z-index: 1000; position: static; top: 28px;">
+			<div class="container clearfix">
+				<div class="logo">
+					<a href="/">
+						<img src="__PUBLIC__/Img/logo.png">
+					</a>
+				</div><!-- .logo -->
+
+				<h1 class="welcome">{:L('TIP6')}</h1>				
+			</div>
+		</div><!-- .menu_nav -->
+		<div class="mobile_nav clearfix">
+			<div class="container">			
+				<div class="logo_mobile">
+					<a href="/"><img src="__PUBLIC__/Img/logo_mobile.png" alt="" /></a>
+				</div>	
+				<a id="menu_button" href="javascript:void(0)"></a>
+			</div>
+			<div id="user_menu">
+				<div class="account clearfix">
+					<div class="container">			
+						<a class="login" data-action="openLoginDialog" href="javascript:void(0);">{:L('LOGIN')}</a>
+						<a class="register" href="{:U('Account/register')}">{:L('REGISTERED')}</a>
+					</div>
+				</div>
+				<form class="navbar-search" action="{:U('Index/search')}" method="post" enctype="application/x-www-form-urlencoded">
+					<div class="container">		
+						<input type="text" name="keyword" class="search-query" placeholder="{:L('TIP26')}" value="{$keyword}">
+						<input type="hidden" name="type" value="{$type}"/><!-- 当前的搜索类型 -->
+						<input class="search_button" type="submit" />
+					</div>
+				</form>
+				<div class="android_download">
+					<div class="container">	
+						<a href="http://test.diuzhuan.com/diuzhuan.apk">下载Android手机客户端</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!-- #header -->
+
+	<div id="main">
+		<div class="content-inner container clearfix">
+				
+			<form class="form-horizontal" id="register_form" method="post" action="">
+				<h1>{:L('USER_REGISTRATION')}</h1>
+				<div class="control-group">
+					<label class="control-label">{:L('REGISTERED_MAIL')}</label>
+					<div class="controls clearfix">
+						<input type="text" name="email" id="email">
+						<span class="help-block" style="display:none;">{:L('TIP5')}example@example.com</span>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">{:L('USER_NICKNAME')}</label>
+					<div class="controls clearfix">
+						<input type="text" name="nickname" id="nickname">
+						<span class="help-block" style="display:none;">{:L('TIP7')}</span>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">{:L('GENDER')}</label>
+					<div class="controls">
+						<label><input type="radio" checked="" value="0" id="optionsRadios1" name="gender">{:L('MAN')}</label>
+						<label><input type="radio" value="1" id="optionsRadios2" name="gender">{:L('WOMAN')}</label>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">{:L('CREATE_PASSWORD')}</label>
+					<div class="controls clearfix">
+						<input type="password" name="password" id="password">
+						<span class="help-block" style="display:none;">{:L('TIP8')}</span>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">{:L('CONFIRM_PASSWORD')}</label>
+					<div class="controls clearfix">
+						<input type="password" name="passconf" id="passconf">
+						<span class="help-block" style="display:none;">{:L('TIP9')}</span>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label"></label>
+					<div class="controls">
+						<label class="checkbox">
+							<input type="checkbox" checked="checked" value="1" name="terms" id="terms">
+							{:L('ACCEPT')} 
+							<a target="_blank" href="{:U('Aboutus/userService')}">{:L('SERVICES_ORDINANCE')} </a>
+						</label>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label"></label>
+					<div class="controls">
+						<button id='submit' class="btn btn-success" type="submit">{:L('REGISTERED')}</button>
+						<span class="error" id="ajax_message"></span>
+					</div>
+				</div>
+			</form>
+
+			<div class="aside">
+				<p>{:L('TIP10')}</p>
+				<button class="btn" type="submit" onClick="location.href='{:U('Account/login')}'">{:L('LOGIN')}</button>
+			</div><!-- .aside -->
+
+		</div><!-- .content-inner -->
+	</div><!-- #main -->
+
+	<div class="footer">
+		<div class="container text-overflow">
+			<div class="mediumtxt desc pull-left">
+				<p class="pull-left"><a href="/">{:L('THROW_BRICK')}</a> {:L('SLOGAN2')}</p>
+			</div>
+			<ul class="footer-nav pull-right">
+				<li><a href="#">{:L('USER_AGREEMENT')}</a></li>
+				<li><a href="#">{:L('ABOUT_BRICK')}</a></li>
+				<li><a href="#">{:L('CONTACT_US')}</a></li>
+			</ul>
+		</div>
+	</div>
+	<a id="BackToTop" href="#" title="{:L('BACK_TO_TOP')}"><span></span></a>
+
+	<script type="text/javascript">
+		//当所输入内容全部符合要求格式时，注册按钮可点击
+		function allRight(){
+			var email = $('#email').val();
+			var isemail=/^\w+([-\.]\w+)*@\w+([\.-]\w+)*\.\w{2,4}$/;
+
+			if(isemail.test(email) && $('#email').parent().children('.help-block').hasClass('yes') && len($('#nickname').val()) > 3 && len($('#nickname').val()) < 21 && $('#password,#passconf').val().length > 3 && $('#password,#passconf').val().length < 11 && $('#password').val() == $('#passconf').val() && $('#passconf').val() == $('#password').val() && $('#terms').is(":checked")){
+				$('#submit').removeAttr('disabled', 'disabled').removeClass('disabled');
+			}
+			else{
+				$('#submit').attr('disabled', 'disabled').addClass('disabled');
+			}
+		}
+		$(function(){
+			//默认注册按钮不可点击
+			$('#submit').attr('disabled', 'disabled').addClass('disabled');			
+
+			//实时监听邮箱输入格式是否符合要求
+			var email_true = false;
+			$('#email').bind('input propertychange', function() {	
+				var email = $(this).val();
+				var isemail=/^\w+([-\.]\w+)*@\w+([\.-]\w+)*\.\w{2,4}$/;
+
+				
+				if(isemail.test(email)){	//判断已输入内容格式是否正确
+					email_true = true;	
+				}
+				if(email_true){		//如果格式正确，再通过ajax对服务器进行访问判断邮箱是否存在
+					var email_val = $(this).val();
+					$.ajax({
+						url: '/Account/reg_email',
+						type: 'get',
+						data: 'email='+ email_val,
+						dataType: 'json',
+						success: function(result){
+
+							if(isemail.test(email)){
+								if(result[0]){		//邮箱可注册
+									$('#email').parent().children('.help-block').show().addClass('yes').html(result[1]);
+									allRight();	
+								}
+								if(!result[0]){		//邮箱已被注册
+									$('#email').parent().children('.help-block').show().removeClass('yes').html(result[1]);	
+									allRight();	
+								}	
+								email_true = true;			
+							}else{
+								if(email_true){		//邮箱格式不正确
+									$('#email').parent().children('.help-block').show().removeClass('yes').html('{:L('TIP5')}example@example.com');	
+									allRight();								
+								}
+								return false;
+							}									
+						}
+					});	
+				}
+				
+			});
+
+			//邮箱输入完成失去焦点后验证格式
+			$('#email').focusout(function(){
+				var email = $(this).val();
+				var isemail=/^\w+([-\.]\w+)*@\w+([\.-]\w+)*\.\w{2,4}$/;
+
+				var email_val = $(this).val();
+				$.ajax({
+					url: '/Account/reg_email',
+					type: 'get',
+					data: 'email='+ email_val,
+					dataType: 'json',
+					success: function(result){
+						if(result[0]){
+							$('#email').parent().children('.help-block').show().addClass('yes').html(result[1]);
+						}
+						if(!result[0]){	
+							$('#email').parent().children('.help-block').show().removeClass('yes').html(result[1]);	
+						}						
+						if(!isemail.test(email)){
+							$('#email').parent().children('.help-block').show().removeClass('yes').html('{:L('TIP5')}example@example.com');	
+						}						
+					}
+				});	
+
+				allRight();
+			});
+
+			
+			//实时监听用户名输入格式是否符合要求
+			var nickname_true;
+			$('#nickname').bind('input propertychange', function() {
+				if(len($(this).val()) > 3 && len($(this).val()) < 21){
+					$(this).parent().children('.help-block').show().addClass('yes').html('');	
+					allRight();	
+					nickname_true = true;			
+				}else{
+					if(nickname_true){
+						$(this).parent().children('.help-block').show().removeClass('yes').html('{:L('TIP7')}');	
+						allRight();	
+					}
+				}				
+			});
+
+			//用户名输入完成失去焦点后验证格式
+			$('#nickname').focusout(function(){
+				if(len($(this).val()) > 3 && len($(this).val()) < 21){					
+					$(this).parent().children('.help-block').show().addClass('yes').html('');
+				}else{
+					$(this).parent().children('.help-block').show().removeClass('yes').html('{:L('TIP7')}');	
+				}
+				allRight();
+			});
+
+			//实时监听创建密码输入格式是否符合要求
+			var password_true;
+			$('#password').bind('input propertychange', function() {	
+				if($(this).val().length >5 && $(this).val().length <11){
+					$(this).parent().children('.help-block').hide();
+					if($(this).val() == $('#passconf').val()){
+						$('#passconf').parent().children('.help-block').hide();	
+					}
+					password_true = true;			
+				}else{
+					if(password_true){
+						$(this).parent().children('.help-block').show();	
+					}
+				}
+				allRight();
+			});
+
+			//创建密码输入完成失去焦点后验证格式
+			$('#password').focusout(function() {
+				if($(this).val().length >5 && $(this).val().length <11 ){					
+					$(this).parent().children('.help-block').hide();				
+				}else{
+					$(this).parent().children('.help-block').show();			
+				}
+				allRight();
+			});
+
+			//实时监听确认密码输入格式是否符合要求			
+			$('#passconf').bind('input propertychange', function() {	
+				//当确认密码的位数大于创建密码的位数时，显示错误			
+				if($(this).val().length > $('#password').val().length && $(this).val().length > 5){	
+					$(this).parent().children('.help-block').show();
+				}
+				//当确认密码的位数等于创建密码的位数时，进行判断
+				if($(this).val().length == $('#password').val().length){	
+					if($(this).val() == $('#password').val()){					
+						$(this).parent().children('.help-block').hide();	
+					}else{
+						$(this).parent().children('.help-block').show();
+					}
+				}	
+				allRight();
+			});
+			
+			//确认密码输入完成失去焦点后验证格式
+			$('#passconf').focusout(function() {
+				if($(this).val() != $('#password').val() ){
+					$(this).parent().children('.help-block').show();
+				}else{
+					$(this).parent().children('.help-block').hide();
+				}
+				allRight();
+			});
+
+			//是否同意用户服务条例
+			$('#terms').click(function() {
+				allRight();
+			});
+		});
+
+		//页面刷新，如果输入框内容符合要求，显示勾图标
+		$(document).ready(function() {
+			var email = $('#email').val();
+			var isemail=/^\w+([-\.]\w+)*@\w+([\.-]\w+)*\.\w{2,4}$/;
+
+			if(isemail.test(email) ){
+				$('#email').parent().children('.help-block').show().addClass('yes').html('');	
+			}
+
+			if(len($('#nickname').val()) > 3 && len($('#nickname').val()) < 21 ){
+				$('#nickname').parent().children('.help-block').show().addClass('yes').html('');	
+			}
+		});
+
+		$('#submit').click(function() {
+			$.ajax({
+				url: '/Account/register',
+				type: 'post',
+				data: $('#register_form').serialize(),
+				dataType: 'json',
+				success: function(result){
+			   	  if (!result[0]) {
+                      $('#error').html(result[1]);
+                  }else{
+                    window.location = '/'
+                  };
+				}
+			})
+			return false;
+		});
+		
+	</script>
+
+
+</body>
+</html>

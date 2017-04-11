@@ -1,0 +1,21 @@
+<span id="{$album_id}-favoriteAlbum">
+<switch name="status">
+	<case value="1">
+		<a href="javascript:void(0)" data-action="addFavoriteAlbum" data-params="{$album_id}" class="attention">
+			<span>关注此专辑</span>
+		</a>
+	</case>
+	<case value="2">
+		<a href="javascript:void(0)" data-action="remFavoriteAlbum" data-params="{$album_id}" class="attention relation-box">
+			<span class="view">已关注</span>
+			<span class="action">取消关注</span>
+		</a>
+	</case>
+	<case value="3">
+		<a href="javascript:void(0)" data-action="editAlbum" data-params="{$album_id}" class="attention">
+			<span>编辑专辑</span>
+		</a>
+	</case>
+	<default/>
+</switch>
+</span>

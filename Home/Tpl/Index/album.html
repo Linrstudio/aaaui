@@ -1,0 +1,32 @@
+<include file="Common:header" />
+<div class="container">
+	<div class="albuminfobar clearfix ">
+		<div class="user_info pull-left clearfix">
+			<a class="user_img" href="{:U('User/myAlbums',array('user_id'=>$album['user_id']))}"><img src="{$album['avatar_local']}{:C('MIDDLE_AVATAR')}"></a>
+			<h3 class="user_name"><a href="{:U('User/myAlbums',array('user_id'=>$album['user_id']))}">{$album['nickname']}</a></h3>
+		</div>
+		<h3 class="album_title">{$album['album_title']}</h3>				
+		<div class="pull-right">
+			<a class="" href="#">{$album['total_share']}收集</a>
+			<a href="#">{$album['total_followers']}人关注</a>
+		</div>
+		{$album['favoriteAlbum']}
+	</div>
+		
+	<div id="waterfall_outer" data-fullscreen="0">
+		<div id="waterfall" class="masonry clearfix" data-animated="0" data-pin-width="250">
+			<eq name="currentUser['user_id']" value="$album['user_id']">
+				<div class="pin no-border home-album">
+					<a data-params="local_upload" title="收集工具" data-action="openPublishLocalDialog" class="addpinrep">
+						<i></i>
+						<span>
+							上传拼图
+						</span>
+					</a>
+				</div>
+			</eq>
+			<include file="Waterfall:pin"/>
+		</div>
+	</div>
+</div>
+<include file="Common:footer" />

@@ -1,0 +1,77 @@
+<div>
+    <div id="local_upload" class="pbody local-img" data-title="{:L('LOCAL_UPLOAD')}" data-width="800" data-css-class="publish" style="display:none;">
+		<div class="enter-content">
+			<div class="file">
+				<button id="item_upload_btn" class="btn btn-success">{:L('upload_pic')}</button>
+			</div>
+			<span>{:L('TIP13')}</span>
+		</div>
+		<div class="input-prepend ml10">
+        	<span id="ajax_upload_message"></span>
+        </div>
+    </div><!-- .local-img -->
+
+    <div id="create_board" style="display:none" class="pbody url-img album-creation" data-title="创建专辑" data-width="800" data-css-class="publish">
+    	<form id="create_board_form" data-url="" next-url="" method="post">
+			<div class="more-info">
+				<input type="hidden" id="board_shop_id" name="shop_id" value=""/>
+				<input name="board_title" class="album" type="text" placeholder="专辑名" />
+				<textarea name='board_desc' placeholder="写点介绍，让更多人喜欢ta"></textarea>
+				<button id="boardsubmit" class="btn btn-success ajax_btn" type="submit">发布</button>
+			</div>
+		</form>
+    </div>
+    <!-- 抓取成功后跳转的页面 -->
+    <div id="image-area" style="display:none"  class="pbody url-img shop" data-title="{lang create_new}{lang share}" data-width="800" data-css-class="publish">
+	<form id="save_share_form" data-url="" next-url="" method="post">
+		<input type="hidden" name="cover_filename" id="cover_filename">
+		<input type="hidden" name="item_id" id="item_id">
+		<input type="hidden" name="channel" id="channel">
+		<input type="hidden" name="share_type" id="share_type">
+		<input type="hidden" name="reference_url" id="reference_url">
+		<input type="hidden" name="all_files" id="all_files">
+		<input type="hidden" name="flv" id="flv">
+		<input type="hidden" name="groupid" id="groupid">
+		<input type="hidden" name="topicid" id="topicid">
+		<input type="hidden" name="shop_id" id="shop_id">
+		<input type="hidden" name="user_id" id="user_id">
+		<input type="hidden" name="board_id" id="board_id">
+		<div id="publish_image_list" class="img-info">
+			<!-- <p><span>来源：</span></p><p><span>链接：</span></p><div class="thumbnail"><img src=""></div> -->
+		</div>
+		<div class="more-info">
+			<div class="atlas">
+				<div class="category_select_list clearfix" data-init="0">
+					<span class="title">拼图专辑</span>
+		    		<input id="ablum_select_id" name="album_id" type="hidden" value="1">
+	    			<a href="javascript:void(0);" class="select_btn" data-action="albumItemPopup" data-params="popup"><span class="album_select_title">默认专辑</span> <span class="caret ml10"></span></a>
+	           	</div>
+				<div class="popup">
+					<ul class="atlas-content">
+					</ul>
+				</div>
+			</div>
+			<!-- edit by porter at 2013-12-11 09:41:14 添加好店专辑 -->
+			<div class="boards">
+				<div class="board_select_list category_select_list clearfix" data-init="0">
+					<span class="title">好店专辑</span>
+		    		<input id="board_select_id" name="board_id" type="hidden" value="1">
+	    			<a href="javascript:void(0);" class="select_btn" data-action="boardItemPopup" data-params="popup"><span class="board_select_title">默认专辑</span> <span class="caret ml10"></span></a>
+	           	</div>
+				<div class="board-popup">
+					<ul class="board-content">
+					</ul>
+				</div>
+			</div>
+			<!-- end edit -->
+			<div class="intro clearfix">
+				<span class="title">{:L('INTRODUCE')}</span>
+				<textarea name='intro' placeholder="{:L('TIP14')}"></textarea>
+			</div>	
+		</div>
+		<div class="submit_div">
+			<button id="editorsubmit" class="btn btn-success ajax_btn" type="submit">{:L('RELEASE')}</button>
+		</div>
+	</form>
+    </div><!-- .url-img -->
+</div>

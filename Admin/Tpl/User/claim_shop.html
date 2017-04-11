@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <title>控制面板</title>
+  <include file="Common:intoHead" />
+</head>
+<body>
+<div class="tablebox">
+	<div class="tablebox">
+		<table class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>申请用户ID</th>
+					<th>认领好店ID</th>
+					<th>申请时间</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="applies" id="apply">
+					<tr>
+						<td style="word-wrap:break-word;width:50px;">{$apply.apply_id}</td>
+						<td style="word-wrap:break-word;width:100px;">{$apply.user_id}</td>
+						<td style="word-wrap:break-word;width:100px;">{$apply.apply_desc}</td>
+						<td style="word-wrap:break-word;width:300px;">{$apply.create_time|friendlyDate}</td>
+						<td style="word-wrap:break-word;width:80px;">
+							<a id="agree" href="{:U('User/claim_shop',array('apply_id'=>$apply['apply_id'],'do'=>'agree'))}">通过</a>
+							<a href="{:U('User/claim_shop',array('apply_id'=>$apply['apply_id'],'do'=>'disagree'))}">拒绝</a>
+						</td>
+					</tr>
+				</volist>
+			</tbody>
+		</table>
+		<div class="pagination pagination-centered">{$show}</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$('#agree').click(function() {
+		if(!window.confirm("是否通过申请")){
+			return false;
+		};
+	});
+</script>
+</body>
+</html>

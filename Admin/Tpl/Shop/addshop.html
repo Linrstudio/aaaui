@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <title>控制面板</title>
+  <include file="Common:intoHead" />
+  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=3E91c52825e954e8a0450eeb709abadd"></script>
+	<style type="text/css">
+		.form-horizontal{
+			position: relative;
+		}
+		#allmap{
+		 	border: 1px solid #AAAAAA;
+		    height: 370px !important;
+		    overflow: hidden !important;
+		    position: absolute !important;
+		    left: 430px !important;
+		    top: 0 !important;
+		    width: 600px !important;
+		}
+	</style>
+</head>
+<body class="objbody">
+    <div class="tablebox_footer">
+		<form action="{:U('Shop/addShop')}" method="post" class="form-horizontal">
+			<fieldset>
+				<div class="control-group">
+					<label class="control-label" for="input01">商家登录邮箱：</label>
+					<div class="controls">
+						<input type="text" class="input-xlarge" id="email" name="email" />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="input01">商家登录密码：</label>
+					<div class="controls">
+						<input type="text" class="input-xlarge" id="passwd" name="passwd" />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="input01">所在城市：</label>
+					<div class="controls">
+						<select name="city" id="city">
+							<volist name='areaList' id='city' >
+								<option value="{$city.area_id}">{$city.area_name}</option>
+							</volist>
+						</select>
+					</div>
+				</div>
+				<div id="district_control" class="control-group" style="display:none">
+					<label class="control-label" for="input01">所在区：</label>
+					<div class="controls">
+						<select name="district" id="district">
+						</select>
+					</div>
+				</div>
+				<div id="street_control" class="control-group" style="display:none">
+					<label class="control-label" for="input01">所在街道：</label>
+					<div class="controls">
+						<select name="street" id="street">
+						</select>
+					</div>
+				</div>
+				<div class="control-group"  id="addArea" style="display:none">
+					<label class="control-label" for="input01">添加城市和街道：</label>
+					<div class="controls">
+						<a href="{:U('Shop/addArea')}">点击添加</a>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="input01">一级服务：</label>
+					<div class="controls">
+						<select name="service" id="service">
+							<volist name='serviceList' id='service' >
+								<option value="{$service.service_id}">{$service.service_name}</option>
+							</volist>
+						</select>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="input01">二级服务：</label>
+					<div class="controls" id="sonService">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="input01">商家名称：</label>
+					<div class="controls">
+						<input type="text" class="input-xlarge" id="name" name="name" />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="input01">商家名称缩写：</label>
+					<div class="controls">
+						<input type="text" class="input-xlarge" id="short_name" name="short_name" />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="input01">商家地址：</label>
+					<div class="controls">
+						<input type="text" class="input-xlarge" id="address" name="address" />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="input01">商家电话：</label>
+					<div class="controls">
+						<input type="text" class="input-xlarge" id="phone" name="phone" />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="input01">地图位置：</label>
+					<div class="controls">
+						<a id="map" href="#">点此将标记放到具体的位置<br/>最后点下面提交按钮保存</a>						
+					</div>
+					<div class="controls">
+						<input type="text" class="input-xlarge" id="gps" name="gps" readOnly="true"/>
+					</div>
+				</div>				
+				<div id="allmap"></div>
+				<div class="form-actions" style="display:none">
+					<button type="submit" class="btn">保存</button>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+
+$(document).ready(function() {
+	var area_id = $('#city').val();
+	$.ajax({
+		url: "{:U('Shop/getAreaById')}",
+		type: 'post',
+		dataType: 'json',
+		data: {area_id: area_id},
+		success: function(data){			
+			if(data){
+				$('#district_control').show();
+				$.each(data,function(i, area) {
+					$('#district').append('<option value='+area.area_id+'>'+area.area_name+'</option>');
+				});
+				var area_id = $('#district').val();
+				$.ajax({
+					url: "{:U('Shop/getAreaById')}",
+					type: 'post',
+					dataType: 'json',
+					data: {area_id: area_id},
+					success: function(data){			
+						if(data){
+							$('#street_control').show();
+							$.each(data,function(i, area) {
+								$('#street').append('<option value='+area.area_id+'  point='+area.gps+'>'+area.area_name+'</option>');
+							});
+						}else{
+							alert('请先添加所属城市的相关区域或者街道!');
+							$('#addArea').show();
+						}			
+					}
+				});
+			}else{
+				alert('请先添加所属城市的相关区域或者街道!');
+				$('#addArea').show();
+			}
+		}
+	});	
+
+	var service_id = $('#service').val();
+	$.ajax({
+		url: "{:U('Shop/getServiceById')}",
+		type: 'post',
+		dataType: 'json',
+		data: {service_id: service_id},
+		success: function(data){
+			if(data){
+				$.each(data,function(i, service) {
+					$('#sonService').append('<label><input name="sonService['+service.service_id+']" type="checkbox" value="'+service.service_id+'" />'+service.service_name+'</label>');
+				});
+			}else{
+				$('#sonService').append("<a href={:U('Shop/addService')}>点击添加</a>");
+			}
+		}
+	});
+});
+
+$('#service').change(function() {
+	var service_id = $('#service').val();
+	$.ajax({
+		url: "{:U('Shop/getServiceById')}",
+		type: 'post',
+		dataType: 'json',
+		data: {service_id: service_id},
+		success: function(data){
+			$('#sonService').html('');
+			if(data){
+				$.each(data,function(i, service) {
+					$('#sonService').append('<label><input name="sonService['+service.service_id+']" type="checkbox" value="'+service.service_id+'" />'+service.service_name+'</label>');
+				});
+			}else{
+				$('#sonService').append("<a href={:U('Shop/addService')}>点击添加</a>");
+			}			
+		}
+	});
+});
+
+
+$('#city').change(function() {
+	var area_id = $(this).val();
+	$.ajax({
+		url: "{:U('Shop/getAreaById')}",
+		type: 'post',
+		dataType: 'json',
+		data: {area_id: area_id},
+		success: function(data){			
+			if(data){
+				$('#district_control').show();
+				$('#district').html('');
+				$.each(data,function(i, area) {
+					$('#district').append('<option value='+area.area_id+'>'+area.area_name+'</option>');
+				});
+				var area_id = $('#district').val();
+				$.ajax({
+					url: "{:U('Shop/getAreaById')}",
+					type: 'post',
+					dataType: 'json',
+					data: {area_id: area_id},
+					success: function(data){
+						$('#street').html('');			
+						if(data){
+							$('#street_control').show();
+							$.each(data,function(i, area) {
+								$('#street').append('<option value='+area.area_id+'>'+area.area_name+'</option>');
+							});
+						}else{
+							alert('请先添加所属城市的相关区域或者街道!');
+							$('#addArea').show();
+						}			
+					}
+				});
+			}else{
+				alert('请先添加所属城市的相关区域或者街道!');
+				$('#addArea').show();
+			}
+		}
+	});	
+});
+
+$('#district').change(function() {
+	var area_id = $(this).val();
+	$.ajax({
+		url: "{:U('Shop/getAreaById')}",
+		type: 'post',
+		dataType: 'json',
+		data: {area_id: area_id},
+		success: function(data){			
+			if(data){
+				$('#street_control').show();
+				$('#street').html('');
+				$.each(data,function(i, area) {
+					$('#street').append('<option value='+area.area_id+' point='+area.gps+'>'+area.area_name+'</option>');
+				});
+			}else{
+				alert('请先添加所属城市的相关区域或者街道!');
+				$('#addArea').show();
+			}			
+		}
+	});	
+});
+
+$('#map').click(function() {	
+	var mapPointx = $('#street').children('option:selected').attr('point');
+	pointArr = mapPointx.split(',');
+	mapPointx = pointArr[0];
+	mapPointy = pointArr[1];
+	var map = new BMap.Map("allmap");            // 创建Map实例
+	var point = new BMap.Point(mapPointx,mapPointy);//定义一个中心点坐标
+    map.centerAndZoom(point,17);//设定地图的中心点和坐标并将地图显示在地图容器中
+	map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+	map.addControl(new BMap.OverviewMapControl({isOpen:true, anchor: BMAP_ANCHOR_TOP_RIGHT}));   // 添加缩略地图控件
+	map.enableScrollWheelZoom();    //启用滚轮放大缩小，默认禁用
+	map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
+	map.addEventListener("click",function(e){
+	    $('#gps').val(e.point.lng + "," + e.point.lat);
+	    $('.form-actions').show();
+	});
+});
+
+</script>

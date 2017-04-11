@@ -1,0 +1,92 @@
+<include file="Common:header" />
+
+<div class="container personal-homepage">
+	<div class="personal_wrap clearfix">
+		<div class="main profile">
+			<div class="user_img">
+				<img class="avatar photo-large" src="{$user['avatar_local']}{:C('LARGE_AVATAR')}">
+			</div>
+
+			<div class="user_info">
+				<h2>{$user['nickname']}</h2>
+				<ul class="profile-details unstyled">
+					<li>
+						<a class="male" href="javascript:void(0);">
+							<switch name="user['gender']">
+								<case value="0">男</case>
+								<case value="1">女</case>
+								<default/>未设置
+							</switch>
+						</a>
+					</li>
+					<li>
+						<span class="locality" href="#">
+						<notempty name="user['city']">
+							{$user['province']}-{$user['city']}
+						<else/>
+							地球上
+						</notempty>
+						</span>
+					</li>
+					<neq name="currentUser['user_id']" value="$user['user_id']">
+						<li class="follow">
+							{$user['relationView']}
+						</li>
+					</neq>
+				</ul>
+				<a style="display:none;" class="action-button" href="#"><span>{:L('PERSONAL_SETTINGS')}</span></a>
+			</div><!-- .user_info -->
+		</div>		
+		<div class="user-info">
+			<div class="user-attention {$do=='follow'?'active':''}">
+				<div id="atte">{:L('ATTENTION')}  {$user['total_follows']}</div>
+				<div class="clearfix" id="attention">
+					<volist name="follows" id="follow">
+						<a target="_blank" href="{:U('User/myAlbums',array('user_id'=>$follow['user_id']))}">
+							<img title="{$follow['nickname']}" src="{$follow['avatar_local']}{:C('MIDDLE_AVATAR')}">
+						</a>
+					</volist>
+					<a href="{:U('User/followers',array('do'=>'follow','user_id'=>$user['user_id']))}" class="more">{:L('ALL')}</a>
+				</div>
+			</div>
+			<div class="user-fans {$do=='follower'?'active':''}">
+				<div id="fan">{:L('FANS')}  {$user['total_followers']}</div>
+				<div style="display:none;" class="clearfix" id="fans">
+					<volist name="followers" id="follower">
+						<a target="_blank" href="{:U('User/myAlbums',array('user_id'=>$follower['user_id']))}">
+							<img title="{$follower['nickname']}" src="{$follower['avatar_local']}{:C('MIDDLE_AVATAR')}">
+						</a>
+					</volist>
+					<a href="{:U('User/followers',array('do'=>'follower','user_id'=>$user['user_id']))}" class="more">{:L('ALL')}</a>
+				</div>
+			</div>
+		</div><!-- .user-info -->
+	</div><!-- .personal_wrap -->
+	<assign name="actionName" value="$Think.ACTION_NAME"/>
+	<if condition="($actionName eq 'settingBasic') OR ($actionName eq 'settingSecurity') OR ($actionName eq 'shopRecommend') OR ($actionName eq 'myShops')"> 
+		<div class="clearfix tab-nav user-tab">
+			<ul class="tabs unstyled clearfix">
+				<li id="settingBasic" class="tab"><a href="{:U('User/settingBasic')}">{:L('BASIC_SETUP')}</a></li>
+				<li id="settingSecurity" class="tab"><a href="{:U('User/settingSecurity')}">{:L('SECURITY_SETTINGS')}</a></li>
+			</ul>
+		</div>
+	
+	<else/>
+		<div class="clearfix tab-nav user-tab">
+			<ul class="tabs unstyled clearfix">
+				<li id="myAlbums" class="tab"><a href="{:U('User/myAlbums',array('user_id'=>$user['user_id']))}">{:L('ALBUM')} {$user['total_albums']}</a></li>
+				<li id="myShares" class="tab "><a href="{:U('User/myShares',array('user_id'=>$user['user_id']))}">{:L('COLLECT')}{$user['total_shares']}</a></li>
+				<li id="myOrder" class="tab"><a href="{:U('User/myOrder')}">订单</a></li>
+				<!-- <li id="myTicket" class="tab"><a href="{:U('User/myTicket')}">优惠券</a></li> -->
+			</ul>
+		</div>
+	</if>
+	<script>
+		$(document).ready(function(){
+			$('#{$Think.ACTION_NAME}').addClass('active');
+			if('{$Think.ACTION_NAME}'=='myTicket'){
+				$('#myOrder').addClass('active');
+			}
+		});
+	</script>
+</div>

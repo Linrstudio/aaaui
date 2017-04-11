@@ -1,0 +1,31 @@
+<div>
+	<div class="pbody" data-title="设置logo" data-width="600" data-css-class="publish-select">
+		<div id="upload_avatar_div" style="height:225px;">
+			<div class="avatar_div clearfix">
+				<div id="avatar_img_div" class="image-bg text_c image-bg"></div>
+
+				<div id="avatar_large_div" class="image-bg text_c">
+					<img src="<?php echo base_url_r().$current_user['avatar_local'].'_large.jpg';?>" />
+				</div>
+
+				<div id="avatar_middle_div" class="image-bg text_c">
+					<img src="<?php echo base_url_r().$current_user['avatar_local'].'_middle.jpg';?>" />
+				</div>
+
+				<div id="avatar_small_div" class="image-bg text_c">
+					<img src="<?php echo base_url_r().$current_user['avatar_local'].'_small.jpg';?>" />
+				</div>
+			</div>
+			<div class="text_c">
+	   			<a href="javascript:;" id="avatar_upload_btn" class="btn">{:L('SELECT_FILE')}</a>
+	   		</div>
+			<input type="hidden" id="avatar_upload_file"/>
+			<input id="shop_id" value="0" type="hidden"/>
+		</div>
+	</div>
+	<div class="footer">
+		<span id="saveAvatarBtn">
+			<button type="submit" data-action="saveLogo" data-params="" enable="false" class="btn btn-success">{:L('CONFIRM_SUBMIT')}</button>
+		</span>
+	</div>
+</div>

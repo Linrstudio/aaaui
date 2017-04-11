@@ -1,0 +1,51 @@
+<include file="Goodshop:shopHeader" />
+	<div id="waterfall_outer" class="clearfix">
+		<if condition="$isShopKeeper eq true"><!--如果为店主就是创建专辑,否则认领店铺-->
+			<div class="pin no-border home-album">
+				<a class="addpinrep" data-params="{$shopInfo['shop_id']}" href="javascript:void(0);" data-action="openPublishBoardDialog">
+					<i></i>
+					<span>
+						创建专辑
+					</span>
+				</a>
+			</div>
+		</if>
+		<volist name="boards" id="board">
+			<div class="pin home-album">
+				<div class="album-header">
+					<a href="#" class="clearfix">
+						<img src="http://www.diuzhuan.com//data/avatars/000/00/06/99_avatar_middle.jpg" class="user_img">
+						<span class="title">{$board['board_title']}</span>
+						<span class="user_name">{$board['nickname']}</span>
+					</a>
+				</div>			
+				<div class="images clearfix">
+					<span>0{:L('GATHER')}</span>
+					<a href="#">				
+						<volist name="board['shares']" id="share" key="k">
+							<if condition="$k eq 1">
+								<span class="first">
+									<img src="{$share['image_path']}{:C('MIDDLE_PIC')}">
+								</span>
+							<elseif condition="$k eq 5"/>
+								<span class="last">
+									<img src="{$share['image_path']}{:C('SQUARE_PIC')}">
+								</span>
+							<else/>
+								<span>
+									<img src="{$share['image_path']}{:C('SQUARE_PIC')}">
+								</span>
+							</if>
+						</volist>
+					</a>
+				</div>
+				<div class="album-footer">
+					<a class="follow_album" href="#">{:L('ATTENTION')}</a>
+				</div>
+			</div>
+		</volist>
+	</div>
+
+</div><!-- .container -->
+
+<include file="Common:footer" />

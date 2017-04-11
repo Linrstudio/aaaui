@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />	
+	<title>{:L('SLOGAN')}</title>
+	<link rel="icon" href="/favicon.ico" href="/favicon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" href="__PUBLIC__/Img/logo_small.png" type="image/x-icon" />
+	<include file="Common:resources" />		
+</head> 
+<body id="body">
+
+	<div id="header">
+		<div class="global_nav">
+			<div class="container clearfix">
+				<div id="android_download">
+					<a target="_blank" href="http://blog.mkphp.com">379515892作者QQ</a>
+				</div>
+				<notempty name="currentUser['user_id']">					
+					
+					<div class="info_news pull-right">
+						<a href="javascript:void(0)" class="news" title="{:L('MY_NEWS')}">{:L('NEWS')}<span id="msg_num"></span><i id="message_num_container"></i></a>
+						<div class="info_content">
+							<span class="caret"></span>
+							<div class="info_wrap">
+								<h3 class="header">{:L('MY_NEWS')}</h3>
+								<div class="content">
+									<ul id="new-message">                
+										<li class="loading"><img src="__PUBLIC__/Img/loading.gif"></li>
+									</ul>
+								</div><!-- .content -->
+							</div>
+						</div>
+					</div>
+					<div class="user">
+						<a class="user_name" href="#">
+							<img src="{$currentUser['avatar_local']}{:C('MIDDLE_AVATAR')}">{$currentUser['nickname']}<i></i>
+						</a>
+						<ul>
+							<li><a href="{:U('User/settingBasic')}">{:L('PERSONAL_SETTINGS')}</a></li>
+							<if condition="$currentUser['role_id'] eq C('SHOP_TYPE')">
+								<li>
+									<a href="{:U('Goodshop/shares',array('shop_id'=> $currentUser['shop_id']))}">{:L('MY_GOODSHOP')}</a>
+								</li>
+							</if>
+							<li><a href="{:U('User/myOrder')}">我的订单</a></li>
+							<li><a href="{:U('User/myTicket')}">我的优惠券</a></li>
+							<li><a href="{:U('Aboutus/aboutus')}">{:L('HELP_CENTER')}</a></li>
+							<li><a href="{:U('Account/logout')}">{:L('LOGOUT')}</a></li>
+						</ul>
+					</div>
+					<else/>
+					<div class="top_nav_info">
+						<!-- <a id="login_point" class="nav_button" href="{:U('Account/login')}">{:L('LOGIN')}</a> -->
+						<a id="login_point" class="nav_button" data-action="openLoginDialog" href="javascript:void(0);">{:L('LOGIN')}</a>
+						<a class="nav_button" href="{:U('Account/register')}">{:L('REGISTERED')}</a>
+					</div><!-- .top_nav_info -->
+				</notempty>
+			</div>
+		</div><!-- .global_nav -->
+
+		<div class="menu_nav clearfix">
+			<div class="container clearfix">
+				<div class="logo">
+					<a href="/">
+						<img src="__PUBLIC__/Img/logo.png">
+					</a>
+				</div><!-- .logo -->
+				<div class="menu">
+					<ul class="clearfix">
+						<li>
+							<a class="active" href="#">{:L('LIKE')}<i></i></a>
+							<div class="sub_nav">
+								<div class="wrap clearfix">
+									<div class="page_nav">
+										<a class="active like" href="#">{:L('LIKE_CHANNEL')}</a>
+										<a class="life" href="/life.php">{:L('LIFE')}</a>
+									</div>
+									<div class="nav_content">
+										<ul class="clearfix">            
+											<foreach name="categories" item="category">
+												<li>
+													<a class="" href="{:U('Index/pin',array('category_id'=>$category['category_id']))}">
+														{$category['category_name']}
+													</a>
+												</li>
+											</foreach>
+										</ul>
+									</div><!-- .nav_content -->
+								</div><!-- .wrap -->
+							</div><!-- .sub_nav -->
+						</li>
+						<notempty name="currentUser['user_id']">
+							<li class="split">
+								<a class="" href="{:U('User/myAlbums')}">	{:L('MY_COLLECTION')}
+								</a>
+							</li>
+							<li><a class="" href="{:U('User/followers_pins')}">{:L('MY_ATTENTION')}</a></li>
+						</notempty>
+					</ul>
+				</div><!-- .menu -->
+				<form class="navbar-search pull-left" action="{:U('Index/search')}" method="post" enctype="application/x-www-form-urlencoded">
+					<input type="text" name="keyword" class="search-query" placeholder="{:L('TIP26')}" value="{$keyword}">
+					<input type="hidden" name="type" value="{$type}"/><!-- 当前的搜索类型 -->
+					<input class="search_button" type="submit" />
+				</form>
+				<div class="publish">
+					<a class="publish_button" href="javascript:void(0)">{:L('RELEASE')}<i></i></a>
+					<ul>
+						<li class="caret"></li>
+						<li><a class="url" href="javascript:void(0);" data-action="openPublishUrlDialog" title="{:L('SCRAPING_IMAGE')}" data-params="website_fetch">{:L('SCRAPING_IMAGE')}</a></li>
+						<li><a data-params="local_upload" title="{:L('UPLOAD_IMAGE')}" data-action="openPublishLocalDialog" href="javascript:void(0);" class="local">{:L('UPLOAD_IMAGE')}</a></li>
+						<li><a title="{:L('CREATE_ALBUM')}" data-action="openPublishAlbumDialog" href="javascript:void(0);" class="special">{:L('CREATE_ALBUM')}</a></li>
+					</ul>
+				</div>  
+				<div class="clear"></div>    
+			</div>
+		</div><!-- .menu_nav -->
+
+		<div class="mobile_nav clearfix">
+			<div class="container">			
+				<div class="logo_mobile">
+					<a href="/"><img src="__PUBLIC__/Img/logo_mobile.png" alt="" /></a>
+				</div>	
+				<a id="menu_button" href="javascript:void(0)"></a>
+			</div>
+			<div id="user_menu">				
+				<notempty name="currentUser['user_id']">
+					<div class="user_name">
+						<div class="container">
+							<a class="clearfix" href="{:U('User/myAlbums')}">
+								<img src="{$currentUser['avatar_local']}{:C('MIDDLE_AVATAR')}">
+								<span>{$currentUser['nickname']}</span>
+							</a>
+						</div>
+					</div>
+					<div class="my_albums">
+						<div class="container">
+							<a href="{:U('User/myAlbums')}">{:L('MY_COLLECTION')}</a>
+						</div>
+					</div>
+					<div class="followers_pins">
+						<div class="container">
+							<a href="{:U('User/followers_pins')}">{:L('MY_ATTENTION')}</a>
+						</div>
+					</div>
+				<else/>
+					<div class="account clearfix">
+						<div class="container">			
+							<a class="login" data-action="openLoginDialog" href="javascript:void(0);">{:L('LOGIN')}</a>
+							<a class="register" href="{:U('Account/register')}">{:L('REGISTERED')}</a>
+						</div>
+					</div>
+				</notempty>
+				<form class="navbar-search" action="{:U('Index/search')}" method="post" enctype="application/x-www-form-urlencoded">
+					<div class="container">		
+						<input type="text" name="keyword" class="search-query" placeholder="{:L('TIP26')}" value="{$keyword}">
+						<input type="hidden" name="type" value="{$type}"/><!-- 当前的搜索类型 -->
+						<input class="search_button" type="submit" />
+					</div>
+				</form>
+				<div class="android_download">
+					<div class="container">
+						<a href="http://test.diuzhuan.com/diuzhuan_1.0.apk">下载Android手机客户端</a>
+						<notempty name="currentUser['user_id']">
+							<a class="logout" href="{:U('Account/logout')}">退出登录</a>
+						</notempty>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="mobile_category">
+			<a id="category_button" href="javascript:void(0)">全部分类<i></i></a>
+			<div class="mobile_line"></div>
+			<ul class="category_content clearfix">           
+				<foreach name="categories" item="category">
+					<li>
+						<a class="" href="{:U('Index/pin',array('category_id'=>$category['category_id']))}">
+							{$category['category_name']}
+						</a>
+					</li>
+				</foreach>
+			</ul>
+		</div>
+	</div>
+
+	<div id="main">
+		<div class="content-inner">

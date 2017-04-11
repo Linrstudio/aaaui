@@ -1,0 +1,44 @@
+<include file="Goodshop:shopHeader" />
+
+	<div class="messages shop_setting personal-homepage">
+		<form method="post" action="{:U('Goodshop/settingShop')}" class="form-horizontal">
+         	<fieldset>
+         		<input type="hidden" name='shop_id' value="{$shopInfo['shop_id']}"/>
+		        <div class="control-group">
+		            <label for="email" class="control-label">店铺Logo</label>
+		            <div class="controls">
+		                <button data-action="openLogo" data-params="{$shopInfo['shop_id']},{$shopInfo['shop_logo']}" class="btn" type="button">设置头像</button>
+						<p class="help-block">将在弹出窗口中完成</p>
+		            </div>
+		        </div>
+				<div class="control-group">
+		            <label class="control-label">店铺名称</label>
+		            <div class="controls">
+		                <input type="text" name="name" value="{$shopInfo['name']}">
+		            </div>
+		        </div>
+		        <div class="control-group">
+		            <label class="control-label">店铺地址</label>
+		            <div class="controls">
+		                <input type="text" name="address" value="{$shopInfo['address']}">
+		            </div>
+		        </div>
+		        <div class="control-group">
+		            <label class="control-label">店铺简介</label>
+		            <div class="controls">
+		                <textarea name="shop_desc">{$shopInfo['shop_desc']}</textarea>
+		            </div>
+		        </div>
+		        <div class="control-group">
+		            <label class="control-label"></label>
+		            <div class="controls">
+		                <button class="btn btn-success">确定</button>
+		            </div>
+		        </div>	
+         	</fieldset>
+    	</form>
+	</div>
+
+</div><!-- .container -->
+
+<include file="Common:footer" />

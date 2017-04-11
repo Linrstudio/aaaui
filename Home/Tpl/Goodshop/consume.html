@@ -1,0 +1,51 @@
+<include file="Goodshop:shopHeader" />
+
+<div class="personal-homepage">
+	<div class="shopset_content">
+		<table class="tab_list">
+			<tbody>
+				<tr class="banner">
+					<td colspan="6">
+						<span style="float:left;">
+							<b style="font-size:16px;">这里是产品/服务名称</b>
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<th width="20%">
+						订单号
+					</th>
+					<th width="20%">
+						用户信息
+					</th>
+					<th width="20%">
+						消费券号码
+					</th>
+					<th width="20%">
+						使用时间
+					</th>
+				</tr>
+				<volist name='ticketList' id='ticket'>
+					<tr class="text_c">
+						<td>
+							{$ticket.order_id}
+						</td>
+						<td>
+							{$ticket.username}
+						</td>
+						<td>
+							{$ticket.number}
+						</td>
+						<td>
+							{$ticket.usetime}
+						</td>
+					</tr>
+				</volist>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+</div><!-- .container -->
+
+<include file="Common:footer" />

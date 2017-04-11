@@ -1,0 +1,37 @@
+<include file="User:userHeader" />
+
+<div class="clearfix container hot_users">
+	<div id="waterfall_outer">
+		<volist name="users" id="user">
+			<div class="pin">
+				<div class="hot_users">
+					<div class="user-info">
+						<h4><a href="#" target="_blank">{$user['nickname']}</a></h4>
+						<div class="info"><span>{$user['total_albums']}</span>{:L('ALBUM')}&nbsp;•&nbsp;<span>{$user['total_followers']}</span>{:L('FANS')}</div>
+					</div>
+					<div class="images clearfix">
+						<div class="user-img">
+							<a href="#" target="_blank">
+								<img src="{$user['avatar_local']}{:C('LARGE_AVATAR')}">
+							</a>
+						</div>
+						<div class="new-img clearfix">
+							<volist name="user['shares']" id="share">
+								<a><img src="{$share['image_path']}{:C('SQUARE_PIC')}"></a>
+							</volist>
+						</div>
+					</div>
+					<div class="add-attention">
+						{$user['relationView']}				
+					</div><!-- .hot_users -->
+				</div>
+			</div>
+		</volist>
+	</div>
+	  <div class="hide">
+	    {$show}
+	  </div>
+</div>
+
+
+<include file="Common:footer" />

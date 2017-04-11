@@ -1,0 +1,80 @@
+<include file="Common:header" />
+
+<div class="container">
+	<div class="home_recommend">            
+		<div class="recommend_title">
+		</div><!-- .recommend_title -->
+
+		<div class="users">
+			<div class="title">
+				<span>{:L('STORE_SELECTION')}</span>
+			</div>
+			<ul>
+				<li>
+					<a class="img" target="_blank" href="#">
+						<img src="">
+					</a>
+					<div class="info clearfix">
+						<a class="name" target="_blank" href="#">店铺名称</a>
+						<div class="job">平面设计爱好者</div>
+						<div class="pin_num"></div>
+
+						<div class="followuser" href="#"></div>
+					</div>
+				</li>
+			</ul>
+			<a class="apply-button" data-params="shop" data-action="recommendStoreOpen" href="javascript:void(0);">
+				<span>{:L('RECOMMEND_SHOP')}</span>
+			</a>
+		</div><!-- .users -->
+
+			<div class="boards">
+				<div class="title">
+					<span>{:L('TIP19')}</span>
+				</div>
+				<ul class="clearfix">
+				<volist name="goodshops" id="goodshop">
+					<li>
+						<div class="images clearfix">
+							<img class="first" src="{$goodshop['shop_logo']}{:C('LARGE_PIC')}"/>
+							<volist name="goodshop['shares']" id="share">
+								<img src="{$share['image_path']}{:C('SQUARE_PIC')}"/>
+							</volist>
+						</div>
+						<div class="info clearfix">
+							<a class="board_title" target="_blank" href="{:U('Goodshop/boards',array('shop_id'=>$goodshop['shop_id']))}">
+								<span></span>
+							</a>
+						</div>
+						<a class="name" target="_blank" href="{:U('Goodshop/boards',array('shop_id'=>$goodshop['shop_id']))}">
+							<span></span>
+						</a>
+
+						<div class="follow_board">
+						</div>
+					</li>
+				</volist>
+				</ul>
+			</div><!-- .boards -->
+	</div><!-- .home_recommend -->
+
+	<div class="banner">
+		<a class="img" target="_blank" href="#">
+			<img src="__PUBLIC__/Img/banner.png">
+		</a>
+	</div>
+
+	<div id="waterfall_outer" data-fullscreen="0">
+		<div id="waterfall" class="masonry clearfix" data-animated="0" data-pin-width="250">
+			<include file="Waterfall:pin"/>
+		</div>
+	</div>
+	<div class="container">
+		<div id="loadingPins" class="text_c"><img src="__PUBLIC__/Img/puzzle32.gif"></div>
+	</div>
+	<div class="hide">
+		{$show}
+	</div>
+</div><!-- .container -->
+
+<include file="Common:footer" />

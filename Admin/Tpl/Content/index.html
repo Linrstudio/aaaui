@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>控制面板</title>
+	<include file="Common:intoHead" />
+</head>
+<body>
+	<?php echo $setting_header;?>
+	<style type="text/css">
+	div.button {
+		height: 25px;
+		width: 100px;
+		background-color: #000000;
+		font-size: 14px;
+		color: #ffffff;
+		text-align: center;
+		line-height: 20px;
+	}
+	div.button.hover {
+		background-color: darkgray;
+		color: #ffffff;
+	}
+	</style>
+	<div class="tablebox">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th width="160">pic</th>
+					<th width="150">标题</th>
+					<th width="200">图片介绍</th>
+					<th width="80">链接地址</th>
+					<th width="80">显示顺序</th>
+					<th width="100">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="slides" id="item">
+				<tr>
+					<td><a href="<?php echo $item['link_url'];?>"><img src="{:C('SLIDE_PATH')}{$item['image_url']}" width="150" height="55"/></a></td>
+					<td style="word-wrap:break-word;width: 100px;">{$item['title']}</td>
+					<td style="word-wrap:break-word;width: 200px;">{$item['desc']}</td>
+					<td><a href="{$item['link_url']}" target="_blank">链接地址</a></td>
+					<td>{$item['order']}</td>
+					<td>
+						<a class='del' href="{:U('Content/index',array('act'=>'delete','key'=>$item['key']))}">删除</a>
+						<a href="{:U('Content/index',array('act'=>'edit','key'=>$item['key']))}">编辑</a>
+					</td>
+				</tr>
+				</volist>
+		</tbody>
+	</table>
+</div>
+
+<div class="tablebox_footer">
+	<form action="{:U('Content/index',array('act'=>'add'))}" method="post" class="form-horizontal">
+		<fieldset>
+			<div class="control-group">
+				<label class="control-label" for="input01"></label>
+				<div class="controls" id="imgview">
+				</div>
+				<input type="hidden" id="filename" name="filename"/>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="input01">选择文件</label>
+				<div class="controls" id='fileupload_div'>
+					<div id="button1" class="button">上传图片</div>
+					<p class="help-block">640X280(px)</p>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="input01">标题</label>
+				<div class="controls">
+					<input type="text" class="input-xlarge" id="title" name="title" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="input01">链接地址</label>
+				<div class="controls">
+					<input type="text" class="input-xlarge" id="link_url" name="link_url" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="input01">显示顺序</label>
+				<div class="controls">
+					<input type="text" class="input-xlarge" id="order" name="order" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="input01">图片描述</label>
+				<div class="controls">
+					<textarea rows="6" class="span3" id="desc" name="desc"></textarea>
+				</div>
+			</div>
+
+			<div class="form-actions">
+				<button type="submit" class="btn">保存</button>
+			</div>
+		</fieldset>
+	</form>
+</div>
+<script  type="text/javascript">
+$(document).ready(function(){
+	$('.del').click(function() {
+		if(!window.confirm("是否删除?该动作无法撤销")){
+			return false;
+		};
+	});
+	var button = $('#button1'), interval;
+	
+	new AjaxUpload(button, {
+		action: '{:U('Content/index', array('act'=>'upload'))}', 
+		responseType: 'json',
+		onSubmit : function(file, ext){
+			// change button text, when user selects file			
+			button.text('Uploading');
+
+			// If you want to allow uploading only 1 file at time,
+			// you can disable upload button
+			this.disable();
+			
+			// Uploding -> Uploading. -> Uploading...
+			interval = window.setInterval(function(){
+				var text = button.text();
+				if (text.length < 13){
+					button.text(text + '.');					
+				} else {
+					button.text('Uploading');				
+				}
+			}, 200);
+		},
+		onComplete: function(file, result){
+			button.text('上传图片>');
+
+			window.clearInterval(interval);
+
+			// enable upload button
+			this.enable();
+
+			if(result.success === 0){
+				alert(result.message);
+				return;
+			}
+			var filename = result.data.filename+"."+result.data.ext;
+			var filepath = "{:C('SLIDE_PATH')}"+filename;
+			$('#imgview').html('<img src="'+filepath+'" height="200"/>');
+			$('#filename').val(filename);
+		}
+	});
+});
+</script>
+</body>
+</html>

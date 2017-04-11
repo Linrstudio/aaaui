@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <title>控制面板</title>
+  <include file="Common:intoHead" />
+</head>
+<body>
+<div class="tablebox">
+	<div class="tablebox">
+		<table class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>申请用户ID</th>
+					<th>分类ID</th>
+					<th>申请理由</th>
+					<th>状态</th>
+					<th>申请时间</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="shops" id="shop">
+					<tr>
+						<td style="word-wrap:break-word;width:50px;">{$shop.shop_id}</td>
+						<td style="word-wrap:break-word;width:100px;">{$shop.user_id}</td>
+						<td style="word-wrap:break-word;width:100px;">{$shop.store_category_id}</td>
+						<td style="word-wrap:break-word;width:100px;">{$shop.shop_desc}</td>
+						<td style="word-wrap:break-word;width:300px;">
+							<if condition="$shop.is_active eq 1">通过申请<elseif condition="$shop.is_active eq 2" />没通过申请<else />申请中</if>
+						</td>
+						<td style="word-wrap:break-word;width:300px;">{$shop.create_time|friendlyDate}</td>
+					
+						<td style="word-wrap:break-word;width:80px;">
+							<a id="agree" href="{:U('User/apply_shop',array('shop_id'=>$shop['shop_id'],'do'=>'agree'))}">通过</a>
+							<a href="{:U('User/del_shop',array('shop_id'=>$shop['shop_id']))}">拒绝</a>
+						</td>
+					</tr>
+				</volist>
+			</tbody>
+		</table>
+		<div class="pagination pagination-centered">{$show}</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$('#agree').click(function() {
+		if(!window.confirm("是否通过申请")){
+			return false;
+		};
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<include file="Common:header" />
+
+<div class="container">
+	<div id="order_checkout" class="personal-homepage ">
+		<h3>提交订单</h3>
+		<form action="{:U('Order/checkout')}" method='post' class="form-horizontal">
+			<fieldset>		
+				<table id="report" class="text_c" cellspacing=0 >
+					<tbody>
+						<tr>
+							<th>商品</th>
+							<th>数量</th>
+							<th>单价</th>
+							<th>总价</th>
+						</tr>
+						<tr>
+							<td width="45%">{$projectInfo.project_name}</td>
+							<td width="20%"><span id='dec' class='btn'>-</span><span id='num' class='btn'>1</span><span id='inc' class='btn'>+</span></td>
+							<td width="20%">¥<span id='single_price'>{$projectInfo.project_price}</span></td>
+							<td width="15%">¥<span class="price">{$projectInfo.project_price}</span></td>
+						</tr>
+					</tbody>
+				</table>
+				<input type='hidden' name='project_id' value='{$projectInfo.project_id}'/>
+				<input type='hidden' name='project_name' value='{$projectInfo.project_name}'/>
+				<input type='hidden' id="ordbuynum" name='ordbuynum' value='1'>
+				<input type='hidden' name='ordprice' value='{$projectInfo.project_price}'/>
+				<input type='hidden' id="ordfee" name='ordfee' value='{$projectInfo.project_price}'/>
+				<input type='hidden' name='shop_id' value='{$projectInfo.shop_id}'/>				
+				<div class="control-group contact">
+					<label class="control-label">请输入你的手机号：</label>
+					<div class="controls">
+						<input type="text" name='phone' value="{$phone}">
+						<span>购买成功的通知短信会发送到您的手机（节假日期间短信稍有延迟，请耐心等待）</span>
+					</div>
+				</div>
+				<div class="control-group postscript">
+					<label class="control-label">订单附言：</label>
+					<div class="controls">
+						<textarea name='ordtitle'></textarea>
+					</div>
+				</div>
+			
+				<hr>
+				<div class="footer_prices clearfix">
+					<strong>应付总额</strong>
+					<span>¥<span class="price">{$projectInfo.project_price}</span></span>
+				</div>
+				<button type="submit" class="btn btn-success">确认无误，下订单</button>
+			</fieldset>
+		</form>
+	</div>
+</div>
+
+<include file="Common:footer" />
+
+<SCRIPT TYPE="text/javascript">
+	var single_price = $('#single_price').text();
+	$('#inc').click(function() {
+		var num = $('#num').text();
+		num = eval(num+"+1");
+		$('#num').text(num);
+		total_price = eval(single_price+"*"+num);
+		$('.price').text(total_price.toFixed(2));
+		$('#ordbuynum').val(num);
+		$('#ordfee').val(total_price.toFixed(2));
+	});
+	$('#dec').click(function() {
+		var num = $('#num').text();
+		if(num > 1){
+			num = eval(num+"-1");
+			$('#num').text(num);
+			total_price = eval(single_price+"*"+num);
+			$('.price').text(total_price.toFixed(2));
+			$('#ordbuynum').val(num);
+			$('#ordfee').val(total_price.toFixed(2));
+		}
+	});
+</SCRIPT>

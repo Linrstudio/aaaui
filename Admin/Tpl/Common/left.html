@@ -1,0 +1,60 @@
+<div class="admin_menu">
+    <div id="Scroll">
+      <div class="menu_list" id="menu">
+        <dl class="active">
+          <dt><i class="menu_icon menu_home"></i>控制面板</dt>
+          <dd style="">
+            <ul>
+                <li class=""><a href="#"><i class="arrow_icon"></i>控制面板</a></li>
+            </ul>
+          </dd>
+        </dl>
+        <foreach name="menu" item="big_menu" key="key">
+        <dl class="">
+          <dt><i class="menu_icon menu_{$key}"></i>{$big_menu}</dt>
+          <dd style="">
+            <ul>
+              <foreach name="sub_menu" item="sub_menu_list" key="sub">
+                <if condition="$key eq $sub">
+                  <foreach name="sub_menu_list" item="detail" key="key2">
+                    <li class=""><a href="#" url="{:U($key.'/'.$key2)}"><i class="arrow_icon"></i>{$detail}</a></li>
+                  </foreach>
+                </if>
+              </foreach>
+            </ul>
+          </dd>
+        </dl>
+        </foreach>          
+        <dl>
+          <dt><a href="#"><i class="menu_icon menu_out"></i>退出登录</a></dt>
+        </dl>
+      </div>
+    </div>
+    <a title="展开与关闭" class="opens" hidefocus="hidefocus" style="outline-style: none; outline-width: medium; height: 331px;" id="openClose" href="javascript:;"><span class="hidden">展开</span> </a>
+</div>
+<div class="admin_container">
+  <div class="admin_crumbs">
+    <div class="pull-left">控制面板</div>
+  </div>
+  <div class="admin_content">
+    <iframe id="rightMain" src="" width="100%" frameborder="false" scrolling="auto"
+      style="border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; margin-bottom: 30px; height: 155px;"
+      allowtransparency="true"></iframe>
+  </div>
+</div>
+<script type="text/javascript">
+  $(function() {
+    $(".admin_menu").find("dt").bind("click", function(){
+      $(this).parent().siblings().removeClass('active');
+      $(this).parent().addClass('active');
+    });
+    $(".admin_menu").find("li").find("a").click(function(){
+      $(".admin_menu").find("li").removeClass("active");
+      $(this).parent().addClass("active");
+      url = $(this).attr('url');
+      content = $(this).html();
+      $('#rightMain').attr('src',url);
+      $('.pull-left').html(content);
+    });
+  });
+</script>

@@ -1,3 +1,4 @@
+stash
 dev2 branch
 feature1 branch
 dev branch

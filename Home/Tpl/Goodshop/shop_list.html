@@ -1,0 +1,52 @@
+<include file="Goodshop:shopHeader" />
+
+	<div class="personal-homepage">
+		<div class="shopset_content">
+			<table class="tab_list">
+				<tbody>
+					<tr>
+						<th width="30%">
+							服务项目
+						</th>
+						<th width="10%">
+							服务价格
+						</th>
+						<th width="15%">
+							运行状态
+						</th>
+						<th width="25%">
+							开始时间
+						</th>
+						<th width="20%">
+							管理
+						</th>
+					</tr>
+					<volist name="projectList" id="project">
+						<tr class="text_c">
+							<td>
+								{$project.project_name}
+							</td>
+							<td>
+								{$project.project_price}
+							</td>
+							<td>
+								<b>{$project.status}</b>
+							</td>
+							<td>
+								{$project.create_time}
+							</td>
+							<td>
+								<a href="{:U('Goodshop/order_status',array('shop_id'=> $shop_id,'project_id' => $project['project_id']))}">
+									订单
+								</a>
+							</td>
+						</tr>						
+					</volist>
+				</tbody>
+			</table> 
+		</div>
+	</div>
+
+</div><!-- .container -->
+
+<include file="Common:footer" />

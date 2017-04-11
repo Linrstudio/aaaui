@@ -1,0 +1,283 @@
+<include file="Common:header" />
+<div class="appended_wrap">
+	<div class="appended_content">
+		<div class="image_info">
+			<div class="actions clearfix">
+				<a href="javascript:void(0);" data-action="forwarding" data-params="{$share['share_id']}" class="forwarded">
+					{:L('COLLECT')}
+				</a>
+				<span class="number">
+					{$share['favoriteShare']}
+					<span>{$share['total_likes']}</span>
+				</span>
+				<notempty name="share['reference_url']">
+					<a class="link" target="_blank" href="{$share['reference_url']}">{:L('SOURCE')}</a>
+				</notempty>
+				<a href="#reditor_textarea" class="add-comment">
+					{:L('COMMENT')}
+				</a>
+			</div>
+			<div class="image_large">
+				<!-- 注释来源地址 <a href="" target="_blank"></a>-->
+				<img src="{$share['image_path']}{:C('LARGE_PIC')}" data-pinit="registered"/>
+			</div>
+			<div class="pin_intro">
+				<a href="{:U('User/myAlbums',array('user_id'=>$comment['user_id']))}" class="user_img">
+					<img src="{$share['avatar_local']}{:C('MIDDLE_AVATAR')}">
+				</a>
+				<div class="intro_wrap">
+					<strong class="user_name">
+						<a href="{:U('User/myAlbums',array('user_id'=>$comment['user_id']))}">
+							{$share['nickname']}
+						</a>
+					</strong>
+					收集到
+					<a href="/book/{$album['album_id']}">{$album['album_title']}</a>
+					专辑中
+					<small class="time">
+						{$share['create_time']|friendlyDate}
+					</small>
+					<div class="describe">
+						<i class="quote_left"></i>
+						{$share['intro']}
+						<i class="quote_right"></i>
+					</div>
+				</div>
+
+				<!-- <div class="meta-act">  
+					<div class="meta-act-link meta-rss">
+						<a href="javascript:void(0);" title="{:L('SINA_WEIBO')}"><i class="pico-sina"></i></a>
+						<a href="javascript:void(0);"title="{:L('QQ_SPACE')}"><i class="pico-qzone"></i></a>
+						<a href="javascript:void(0);"title="{:L('RENREN')}"><i class="pico-renren"></i></a>
+						<a href="javascript:void(0);"title="{:L('QQ_WEIBO')}"><i class="pico-qq"></i></a>
+					</div>
+				</div>-->
+			</div>
+		</div><!-- .image_info -->
+		<div class="comment">		
+			<div  class="the-comment">
+				<h3 class="meta-head">
+					<strong>{$share['total_comments']}</strong>条{:L('COMMENT')}
+				</h3>
+				<ol class="comments" id="comments_{$share['share_id']}">
+					<volist name="comments" id="comment">
+						<li id="comment-{$comment['comment_id']}">
+							<div class="content">
+								<div class="info">
+									<a href="#" class="user_img">
+										<img src="{$comment['user_avatar']}{:C('MIDDLE_AVATAR')}" alt="">
+									</a>
+									<a href="{:U('User/myAlbums',array('user_id'=>$comment['user_id']))}" class="user_name">
+										{$comment['nickname']}
+									</a>
+									<span class="time">{$comment['create_time']|friendlyDate}</span>
+									<a href="javascript:void(0)" onclick="reply({$comment['comment_id']})" class="reply">回复</a>
+									<eq name="comment['user_id']" value="$currentUser['user_id']">
+										<a href="javascript:void(0)" data-params="{$comment['comment_id']}" data-action="delComment">删除</a>
+									</eq>
+									<a class="praise {$comment['commentSupport']=='1'?'active':''}" data-action="commentSupport" data-params="{$comment['comment_id']},1" href='javascript:void(0)'>顶(<span id="support-{$comment['comment_id']}">{$comment['support']}</span>)</a>
+									<a class="trample {$comment['commentSupport']=='2'?'active':''}" data-action="commentSupport" data-params="{$comment['comment_id']},2" href="javascript:void(0)">踩(<span id="nonsupport-{$comment['comment_id']}">{$comment['nonsupport']}</span>)</a>
+								</div>
+								<div class="text">
+									{$comment['comment_txt']}
+								</div>
+							</div>
+							<ul id="reply_{$comment['comment_id']}">
+								<volist name="comment['replies']" id="reply">
+									<li id="reply-{$reply['reply_id']}">
+										<div class="content">
+											<div class="info">
+												<a href="#" class="user_img"><img src="{$comment['user_avatar']}{:C('MIDDLE_AVATAR')}" alt=""></a>
+												<a href="{:U('User/myAlbums',array('user_id'=>$reply['user_id']))}" class="user_img"><img src="{$reply['user_avatar']}{:C('MIDDLE_AVATAR')}" alt=""></a>
+												<a href="{:U('User/myAlbums',array('user_id'=>$reply['user_id']))}" class="user_name">{$reply['nickname']}</a>
+												<span class="time">{$reply['create_time']|friendlyDate}</span>
+												<eq name="reply['user_id']" value="$currentUser['user_id']">
+													<a href="javascript:void(0)" data-params="{$reply['reply_id']}" data-action="delCommentreply">删除</a>
+												</eq>
+											</div>
+											<div class="text">
+												{$reply['comment_txt']}
+											</div>
+										</div>
+									</li>             
+								</volist>
+							</ul>
+						</li>
+					</volist>	
+				</ol>
+				
+			</div>
+			<div class="comment_text">
+				<a href="{:U('User/myAlbums',array('user_id'=>$share['avatar_local']))}" class="user_img">
+					<img src="{$share['avatar_local']}{:C('MIDDLE_AVATAR')}" class="avatar">
+				</a>
+				<div class="comment_wrap">
+					<div class="edt">
+						<div class="bar" id="reditor_controls">
+							<div class="ebtn cl" id="reditor_button">
+								<div id="reditor_adv_s1" class="b2r clearfix">
+									<a title="{:L('EXPRESSION')}" id="reditor_sml" href="javascript:;">
+										{:L('EXPRESSION')}
+									</a>
+									<a style="display:none;" title="@{:L('TIP15')}" id="reditor_at" href="javascript:;">
+										@{:L('TIP15')}
+									</a>								
+								</div>
+								<div id="reditor_sml_menu" class="p_pop smilebox clearfix">
+									<volist name="smiles" id="smile">	
+										<a href="javascript:;">
+											<img src="{:C('SMILE_PATH')}{$smile['url']}" alt="{$smile['code']}"></img>
+										</a>
+									</volist>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<input type="hidden" id="reply_comment_id" value=""/>
+					<textarea placeholder="{:L('TIP16')}" data-allowimgcode="0" data-allowbbcode="0" data-allowsmilies="1" data-allowswitcheditor="0" data-postmaxchars="300" data-postminchars="10" data-wysiwyg="0" tabindex="2" rows="15" class="pt" id="reditor_textarea" name="intro"></textarea>
+					<div class="bbar" id="reditor_bbar">
+						<em id="reditor_tip"></em>
+						<a id="reditor_chck_tip" href="javascript:;">
+							&nbsp;{:L('TIP17')}<em id="totalFont">300</em>{:L('CHARACTER')}
+						</a>
+						|
+						<a id="reditor_tpr" onclick="javascript:$('#reditor_textarea').val('');$('#totalFont').text(300);return false;" href="javascript:;">
+							{:L('CLEAR_CONTENT')}
+						</a>
+						&nbsp;&nbsp;
+					</div>
+					<a data-params="{$share['share_id']},comment_detail_tpl,1" data-action="addDetailComment" class="comment_btn" href="javascript:void(0);">
+						{:L('COMMENT')}
+					</a>
+				</div>
+			</div><!-- .comment_text -->
+		</div><!-- .comment -->
+	</div>
+	<!-- .appended_content -->
+	<div class="appended_sidebar">
+		<div class="board this_album">
+			<div class="album-header">
+				<a  class="clearfix">
+					<img onclick="location.href='{:U('User/myAlbums',array('user_id'=>$share['user_id']))}'" src="{$share['avatar_local']}{:C('MIDDLE_AVATAR')}"
+					class="user_img">
+					<span onclick="location.href='/book/{$album['album_id']}'" class="title">
+						{$album['album_title']}
+					</span>
+					<span onclick="location.href='{:U('User/myAlbums',array('user_id'=>$share['user_id']))}'" class="user_name">
+						{$share['nickname']}
+					</span>
+				</a>
+			</div>
+			<div class="images clearfix current-board">
+				<span class="pins_num">
+					{$album['total_share']}{:L('GATHER')}
+				</span>
+				<foreach name="album['shares']" item="album_share">
+					<span>
+						<!--如果没有share_id代表为默认图片. 点击就不让跳转页面-->
+						<empty name="album_share['share_id']">
+							<a href="javascript:void(0)">
+						<else/>
+							<a href="/pin/{$album_share['share_id']}">
+						</empty>
+							<img src="{$album_share['image_path']}{:C('SQUARE_PIC')}">
+						</a>
+					</span>
+				</foreach>
+			</div>
+			<div class="album-footer">
+				{$album['favoriteAlbum']}
+			</div>
+		</div><!-- 当前图片所属专辑 -->	
+
+		<div class="pin_tags">
+			<h3 class="tags_title">标签</h3>
+			<div class="content clearfix">
+				<volist name="share['tags']" id="tag">
+					<a href="{:U('Index/tag',array('tag'=>$tag))}">{$tag}</a>
+				</volist>
+			</div>
+		</div>
+	</div>
+	<!-- .append_sidebar -->
+	<div class="clear"></div>
+	<div id="more_boards">
+		<h3 class="more_title">当前图片还被分享在{$totalMore}个专辑中 </h3>
+		<div class="content clearfix">
+			<volist name="more" id="album">
+				<div class="pin home-album">
+					<div class="album-header">
+						<a href="/book/{$album['album_id']}"><strong>{$album['album_title']}</strong></a>
+					</div>			
+					<div class="images clearfix">
+						<span>{$album['total_share']}{:L('GATHER')}</span>
+						<a href="/book/{$album['album_id']}">
+							<volist name="album['shares']" id="share" key="k">
+								<if condition="$k eq 1">
+									<span class="first">
+										<img src="{$share['image_path']}{:C('MIDDLE_PIC')}">
+									</span>
+									<elseif condition="$k eq 5"/>
+									<span class="last">
+										<img src="{$share['image_path']}{:C('SQUARE_PIC')}">
+									</span>
+									<else/>
+									<span>
+										<img src="{$share['image_path']}{:C('SQUARE_PIC')}">
+									</span>
+								</if>
+							</volist>
+						</a>
+					</div>
+					<div class="album-footer">
+						{$album['favoriteAlbum']}
+					</div>
+				</div>
+			</volist>
+		</div>	
+	</div>
+</div>
+
+
+<script>
+$(document).ready(function(){
+	var val_true;
+	$('#reditor_textarea').bind('input propertychange', function() {
+		if ($(this).val() != '') {
+			if(Number($('#reditor_textarea').val().length>=300)){
+				$('#reditor_textarea').val($('#reditor_textarea').val().substring(0,300));
+			}
+			$('#totalFont').text(300-Number($('#reditor_textarea').val().length));
+			$('#reditor_textarea').attr('placeholder','');
+			val_true = true;
+		}
+		else{
+			if (val_true) {
+				$('#reditor_textarea').attr('placeholder','添加一条评论...');
+			}
+		}
+	});
+	//点击表情
+	$('#reditor_sml_menu a').click(function(){
+		var sml_alt = $(this).children('img').attr('alt');		
+		if ($('#reditor_textarea').val() == $('#reditor_textarea').attr('placeholder')) {
+			$('#reditor_textarea').val(sml_alt);	
+		}
+		else{
+			var sml_alt = $('#reditor_textarea').val() + sml_alt;			
+			$('#reditor_textarea').val(sml_alt); //append方法追加表情符号
+		}
+		if ($('.appended_content .comment textarea').val().length > 0) {
+			$('.appended_content .comment .comment_btn').css('display','block');
+		};
+	});
+});
+// 二级回复
+function reply(comment_id){
+	$('#reply_comment_id').val(comment_id);
+	$('.appended_content .comment textarea').focus();
+	$('.appended_content .comment .comment_btn').css('display','block');
+}
+</script>
+<include file="Common:footer" />

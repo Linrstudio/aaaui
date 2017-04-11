@@ -1,0 +1,25 @@
+	<div class="searchinfobar clearfix">
+		<a id='pin' href="{:U('Index/search',array('type'=>'pin','keyword'=>$keyword))}">
+			<strong></strong>
+			{:L('PIN')}
+		</a>
+		<a id='album' href="{:U('Index/search',array('type'=>'album','keyword'=>$keyword))}">
+			<strong></strong>
+			{:L('ALBUM')}
+		</a>
+		<a id='user' href="{:U('Index/search',array('type'=>'user','keyword'=>$keyword))}">
+			<strong></strong>
+			{:L('FRIEND')}
+		</a>
+		<a  style="display:none;" id='shop' href="{:U('Index/search',array('type'=>'shop','keyword'=>$keyword))}">
+			<strong></strong>
+			{:L('SHOP')}
+		</a>
+		<span>{:L('TIP20')}{$keyword}{:L('TIP21')}</span><!-- “搜索条件”的文字是用户搜索什么就是什么 -->
+	</div>
+	<script>
+		$(document).ready(function(){
+			$('.searchinfobar > #{$type}').addClass('active');
+			$('.searchinfobar > #{$type} > strong').text('{$total}');
+		});
+	</script>

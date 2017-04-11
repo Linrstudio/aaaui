@@ -1,0 +1,63 @@
+<include file="Common:header" />
+	<div id="main">
+		<div class="content-inner">
+			<div id="merchant" class="container">
+				<div id="shop_header" class="clearfix">
+					<div class="clearfix" id="store_info">
+						<div class="store_img">
+							<a href="javascript:void(0);">
+								<img src="{$shopInfo['shop_logo']}{:C('LARGE_AVATAR')}">
+							</a>
+						</div>
+						<div class="store_wrap">
+							<h2 class="store_name clearfix">
+								<strong>{$shopInfo['name']}</strong>								
+							</h2>
+							<div class="store_text">{$shopInfo['shop_desc']}</div>
+							<div class="store_address">{$shopInfo['address']}</div>
+						</div>
+					</div>
+
+					<div class="service_list">
+						<h3>本店服务项目：</h3>
+						<ul>
+							<volist name='projectHeaderList' id='project'>
+							<li class="clearfix">
+								<span class="name" title="{$project.project_name}">{$project.project_name}</span>
+								<em>¥{$project.project_price}</em>
+								<a class="buy" href="javascript:viod(0))">购买</a>
+							</li>
+							</volist>
+						</ul>
+					</div>
+				</div>
+
+				<div class="searchinfobar clearfix">
+					<a id="boards" href="{:U('Goodshop/boards',array('shop_id'=>$shopInfo['shop_id']))}">{$shopInfo['total_boards']}{:L('ALBUM')}</a>
+					<a id="shares" class="" href="{:U('Goodshop/shares',array('shop_id'=>$shopInfo['shop_id']))}">{$shopInfo['total_shares']}{:L('PIN')}</a>
+					<if condition="$isShopKeeper eq true">
+						<a  id="shop_list" href="{:U('Goodshop/shop_list',array('shop_id'=>$shopInfo['shop_id']))}">服务列表</a>
+						<a  id="order_status" href="{:U('Goodshop/order_status',array('shop_id'=>$shopInfo['shop_id']))}">查询订单</a>
+						<a  id="consume" href="{:U('Goodshop/consume',array('shop_id'=>$shopInfo['shop_id']))}">消费券</a>
+						<a  id="check_consume" href="{:U('Goodshop/check_consume',array('shop_id'=>$shopInfo['shop_id']))}">验证消费券</a>
+						<a  id="shop_list_set" href="{:U('Goodshop/shop_list_set',array('shop_id'=>$shopInfo['shop_id']))}">服务项目设置</a>
+						<a id="attention" style="display:none;" href="#" class="attention">{:L('ATTENTION_SHOP')}</a>
+						<a id="settingShop" href="{:U('Goodshop/settingShop',array('shop_id'=>$shopInfo['shop_id']))}" class="setting">{:L('SETTING_SHOP')}</a>
+						<a id="shopAccount" href="{:U('Goodshop/shopAccount',array('shop_id'=>$shopInfo['shop_id']))}" class="setting">账户管理</a>
+					</if>
+					<a id="appraise" class="setting" href="{:U('Goodshop/appraise',array('shop_id'=>$shopInfo['shop_id']))}">用户评价</a>
+				</div>
+				<script>
+				$(document).ready(function(){
+					$('.searchinfobar #{$Think.ACTION_NAME}').addClass('active');
+				});
+
+				$('.buy').click(function() {
+					var loginMark = {$loginMark};
+					if(loginMark == 0){
+						openLoginDialog()
+					}else{
+						window.location.href = "{:U('Order/checkout',array('project_id' => $project['project_id']))}";
+					}					
+				});
+				</script>
