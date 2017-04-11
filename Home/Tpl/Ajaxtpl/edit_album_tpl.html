@@ -1,0 +1,35 @@
+<div class="pbody" data-title="{lang edit}{lang share}" data-edit-title="{lang edit} {lang share}" data-width="650" data-css-class="publish">
+	<div id="image-area"  class="pbody url-img" data-title="编辑专辑" data-width="800" data-css-class="publish">
+		<form id="album_edit_form" data-url="" next-url="" method="post">
+			<div class="more-info">
+				<input type="hidden" value="" id="album_id" name="album_id"/>
+				<div class="category_select_list clearfix" data-init="0">
+					<span class="title">标题</span>
+					<input id="album_title" type="text" name="album_title" class="valid album">
+				</div>
+				<div class="category">
+					<div class="category_select_list clearfix" data-init="0">
+						<span class="title">{:L('CATEGORY')}</span>
+			    		<input id="category_select_id" name="category_id" type="hidden" value="0">
+		    			<a href="javascript:void(0);" class="select_btn" data-action="categoryItemPopupShow" data-params="popup"><span class="category_select_title"></span> <span class="caret"></span></a>
+		           	</div>
+					<div class="popup">
+						<div class="add_album"><!-- edit by porter 添加创建专辑功能 -->
+							<input class="album_name valid" type="text" data-id="album_name"/><span class="album_select_create btn btn-puzz" data-params="atlas" data-action="albumPopCreate">{:L('CREATE')}</span>
+						</div>
+						<ul class="category-content">
+						</ul>
+					</div>
+				</div>			
+				<div class="intro clearfix">
+					<span class="title">{:L('INTRODUCE')}</span>
+					<textarea name='album_desc' id="album_desc" class="large" placeholder="{:L('TIP14')}"></textarea>
+				</div>				
+			</div>
+			<div class="submit_div">
+				<button href="javascript:void(0)" id="delAlbum" class="btn btn-warn" data-params="" data-action="delAlbum">删除专辑</button>
+				<button id="albumsubmit" class="btn btn-success ajax_btn" type="submit">{:L('RELEASE')}</button>
+			</div>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <title>控制面板</title>
+  <include file="Common:intoHead" />
+</head>
+<body class="objbody">
+	<div class="tablebox_footer">
+		<form action="{:U('Shop/addArea')}" method="post" class="form-horizontal">
+			<fieldset>   
+				<div class="control-group">
+					<label class="control-label" for="input01">添加一级区域：</label>
+					<div class="controls">
+						<input type="text" class="input-xlarge" id="areaCity" name="areaCity" />
+						<button type="submit" class="btn">保存</button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+    <div class="tablebox_footer">
+		<form action="{:U('Shop/addArea')}" method="post" class="form-horizontal">
+			<fieldset>
+				<div class="control-group">
+					<label class="control-label" for="input01">添加二级区域：</label>
+					<div class="controls">
+						<select name="city" id="city">
+							<volist name='areaList' id='city' >
+								<option value="{$city.area_id}">{$city.area_name}</option>
+							</volist>
+						</select>
+						<input type="text" class="input-xlarge" id="areaDistrict" name="areaDistrict" />
+						<button type="submit" class="btn">保存</button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+	<div class="tablebox_footer">
+		<form action="{:U('Shop/addArea')}" method="post" class="form-horizontal">
+			<fieldset>
+				<div class="control-group">
+					<label class="control-label" for="input01">添加三级区域：</label>
+					<div class="controls">
+						<select name="cityStreet" id="cityStreet">
+							<volist name='areaList' id='city' >
+								<option value="{$city.area_id}">{$city.area_name}</option>
+							</volist>
+						</select>
+						<select name="districtStreet" id="districtStreet">
+						</select>
+						<input type="text" class="input-xlarge" id="areaStreet" name="areaStreet" />
+						<button type="submit" class="btn">保存</button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+$(document).ready(function() {
+	var area_id = $('#cityStreet').val();
+	$.ajax({
+		url: "{:U('Shop/getAreaById')}",
+		type: 'post',
+		dataType: 'json',
+		data: {area_id: area_id},
+		success: function(data){			
+			$.each(data,function(i, area) {
+				$('#districtStreet').append('<option value='+area.area_id+'>'+area.area_name+'</option>');
+			});
+		}
+	});	
+});
+
+$('#cityStreet').change(function() {
+	var area_id = $(this).val();
+	$.ajax({
+		url: "{:U('Shop/getAreaById')}",
+		type: 'post',
+		dataType: 'json',
+		data: {area_id: area_id},
+		success: function(data){
+			$('#districtStreet').html('');			
+			$.each(data,function(i, area) {
+				$('#districtStreet').append('<option value='+area.area_id+'>'+area.area_name+'</option>');
+			});
+		}
+	});	
+});
+</script>

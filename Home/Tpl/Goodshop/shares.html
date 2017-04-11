@@ -1,0 +1,21 @@
+<include file="Goodshop:shopHeader" />
+
+	<div id="waterfall_outer">
+		<div id="waterfall" class="masonry clearfix" data-animated="0" data-pin-width="250">
+			<if condition="$isShopKeeper eq true">
+				<div class="pin no-border home-album">
+					<a data-params="local_upload,{$shopInfo['shop_id']},{$currentUser['user_id']},0" title="收集工具" data-action="openGoodShopLocalDialog" class="addpinrep">
+						<i></i>
+						<span >
+							上传拼图
+						</span>
+					</a>
+				</div>
+			</if>
+			<include file="Waterfall:pin"/>
+		</div>
+	</div>
+
+</div><!-- .container -->
+
+<include file="Common:footer" />

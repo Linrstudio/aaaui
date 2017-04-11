@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>{:L('SLOGAN')}</title>
+	<link rel="icon" href="/favicon.ico" href="/favicon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" href="__PUBLIC__/Img/logo_small.png" type="image/x-icon" />
+	<include file="Common:resources" />
+</head> 
+<body class="register">
+	
+	<div id="header">
+		<div class="menu_nav" style="z-index: 1000; position: static; top: 28px;">
+			<div class="container clearfix">
+				<div class="logo">
+					<a href="/">
+						<img src="__PUBLIC__/Img/logo.png">
+					</a>
+				</div><!-- .logo -->
+
+				<h1 class="welcome">{:L('SLOGAN3')}</h1>				
+			</div>
+		</div><!-- .menu_nav -->
+	</div><!-- #header -->
+
+	<div id="main">
+		<div class="content-inner container clearfix">
+			
+			<form class="form-horizontal" action="{:U('Account/sendEmail')}">
+				<h1>{:L('FORGOT_PASSWORD')}</h1>
+				<p>{:L('TIP1')}</p>
+				<div class="control-group">
+					<label class="control-label">{:L('REGISTERED_MAIL')}</label>
+					<div class="controls clearfix">
+						<input type="text" name="email" id="email" class="span3">
+						<span class="help-block" style="display: none;">eg：example@example.com。</span>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label"></label>
+					<div class="controls">
+						<button class="btn btn-success" type="submit">{:L('CONFIRM_SUBMIT')}</button>
+					</div>
+				</div>
+			</form>
+
+			<div class="aside">
+				<p>{:L('TIP2')}</p>
+				<button class="btn" type="submit" onClick="location.href='{:U('Account/register')}'">{:L('REGISTERED')}</button>
+			</div><!-- .aside -->
+
+		</div><!-- .content-inner -->
+	</div><!-- #main -->
+
+	<div class="footer">
+		<div class="container text-overflow">
+			<div class="mediumtxt desc pull-left">
+				<p class="pull-left"><a href="/">{:L('THROW_BRICK')}</a> {:L('SLOGAN2')}</p>
+			</div>
+			<ul class="footer-nav pull-right">
+				<li><a href="#">{:L('USER_AGREEMENT')}</a></li>
+				<li><a href="#">{:L('ABOUT_BRICK')}</a></li>
+				<li><a href="#">{:L('CONTACT_US')}</a></li>
+			</ul>
+		</div>
+	</div>
+	<a id="BackToTop" href="#" title="{:L('BACK_TO_TOP')}"><span></span></a>
+
+	<script type="text/javascript">
+		$(function(){
+			//实时监听邮箱输入格式是否符合要求
+			var email_true = false;
+			$('#email').bind('input propertychange', function() {	
+				var email = $(this).val();
+				var isemail=/^\w+([-\.]\w+)*@\w+([\.-]\w+)*\.\w{2,4}$/;
+
+				
+				if(isemail.test(email)){	//判断已输入内容格式是否正确
+					email_true = true;	
+				}
+				if(email_true){		//如果格式正确，再通过ajax对服务器进行访问判断邮箱是否存在
+					var email_val = $(this).val();
+					$.ajax({
+						url: '/Account/reg_email',
+						type: 'get',
+						data: 'email='+ email_val,
+						dataType: 'json',
+						success: function(result){
+
+							if(isemail.test(email)){
+								if(result[0]){		//邮箱不存在
+									$('#email').parent().children('.help-block').show().removeClass('yes').html('{:L('TIP3')}<a href="#">{:L('TIP4')}</a>');
+								}
+								if(!result[0]){		//邮箱可登陆
+									$('#email').parent().children('.help-block').show().addClass('yes').html('');	
+								}	
+								email_true = true;			
+							}else{
+								if(email_true){		//邮箱格式不正确
+									$('#email').parent().children('.help-block').show().removeClass('yes').html('{:L('TIP5')}：example@example.com');	
+								}
+								return false;
+							}									
+						}
+					});	
+				}
+				
+			});
+		});
+
+		$('#submit').click(function() {
+			$.ajax({
+				url: '/Account/reg_email',
+				type: 'post',
+				data: $('#register_form').serialize(),
+				dataType: 'json',
+				success: function(result){
+					
+				}
+			})
+		});
+		
+	</script>
+
+
+</body>
+</html>

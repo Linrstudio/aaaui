@@ -1,0 +1,84 @@
+	</div><!-- .content-inner -->
+</div><!-- #main -->
+
+<div class="footer">
+	<div class="container text-overflow">
+		<div class="mediumtxt desc pull-left">
+			<p class="pull-left"><a href="/">{:L('THROW_BRICK')}</a> {:L('SLOGAN2')}</p>
+			<p class="pull-left"><a target="_blank" href="http://www.miitbeian.gov.cn/">粤ICP备14083046号</a></p>
+		</div>
+		<ul class="footer-nav pull-right">
+			<li><a href="#">{:L('USER_AGREEMENT')}</a></li>
+			<li><a href="#">{:L('ABOUT_BRICK')}</a></li>
+			<li><a href="#">{:L('CONTACT_US')}</a></li>
+		</ul>
+	</div>
+</div>
+<a id="BackToTop" href="#" title="{:L('BACK_TO_TOP')}"><span></span></a>
+
+	<include file="Ajaxtpl:static_include_tpl" />
+	<script type="text/template" 
+		id="data-actions"  
+		data-login-url="{:U('Account/login')}" 
+		data-fetchtpl-url="{:U('Ajaxtpl/render_tpl')}" 
+		data-categorylist-url="{:U('Share/category_list')}" //获取分类信息
+		data-ajax-albumcreate="{:U('Share/album_create')}" //创建专辑表单提交
+		data-upload-url="{:U('Share/item_upload', array('act'=>'upload'))}" //上传图片
+		data-upload-save-url="{:U('Share/item_upload', array('act'=>'save'))}" //创建分享
+		data-fetch-save-url="{:U('Share/item_fetch', array('act'=>'save'))}" //网页抓取
+		data-albumlist-url="{:U('Share/all_album_list')}"  
+		data-fetch-url="{:U('Share/item_fetch', array('act'=>'fetch'))}"
+		web-pin-url="{:U('Share/item_fetch', array('act'=>'save'))}"
+		update-share-url="{:U('Share/updateShare')}"
+		data-delshare-url="{:U('Share/delete_share')}"		
+		data-ajaxgetshare-url="{:U('Share/ajax_get_share')}" 
+		data-forwarding-url="{:U('Share/forwarding')}"
+		data-likeshare-url="{:U('Share/addLike')}"
+		data-remLike-url="{:U('Share/remLike')}"
+		data-addcomment-url="{:U('Comment/addComment')}"
+		data-addfollow-url="{:U('Relation/addFollow')}" 
+		data-removefollow-url="{:U('Relation/removeFollow')}"
+		data-avatarupload-url="{:U('User/uploadAvatar')}"
+		data-updateuser-url="{:U('User/updateUserinfo')}"
+		data-mybasicsettings-url="{:U('User/settingBasic')}"
+		data-ajax-resetpasswd="{:U('User/resetPasswd')}"
+		data-avatarsave-url="{:U('User/saveAvatar')}"
+		data-recommend-url="{:U('Goodshop/recommend')}"
+		data-applyStore-url="{:U('Goodshop/applyStore')}"
+		data-ajax-boardcreate="{:U('Goodshop/boardCreate')}"
+		data-goodshopboardslist-url="{:U('Goodshop/goodshopBoardsList',array('shop_id'=>$shopInfo['shop_id']))}"
+		data-checklogin-url="{:U('Base/check_login')}"
+		data-shareInfo-url="{:U('Share/shareInfo')}"
+		data-commentreply-url="{:U('Comment/commentReply')}"
+		data-addFavoriteAlbum-url="{:U('FavoriteAlbum/addFavoriteAlbum')}"
+		data-remFavoriteAlbum-url="{:U('FavoriteAlbum/remFavoriteAlbum')}" //取消关注专辑
+		data-ajax-message="{:U('AjaxMessage/fetch')}" //得到是否有通知消息
+		data-getMessage-url="{:U('AjaxMessage/getMessage')}" //得到通知消息
+		data-commentSupport-url="{:U('Comment/commentSupport')}" // 顶/踩评论
+		data-updateAlbum-url="{:U('User/albumUpdate')}"  //修改专辑
+		data-getOneAlbum-url="{:U('Share/getOneAlbum')}"
+		data-appraise-url="{:U('Goodshop/appraise')}"	// 评价
+		data-delComment-url="{:U('Comment/delComment')}" //删除评论
+		data-delCommentreply-url="{:U('Comment/delCommentreply')}" // 删除二级评论
+		data-delAlbum-url="{:U('Share/delAlbum')}"  // 删除空专辑
+		data-listTags-url="{:U('AjaxMessage/listTags')}" //获得上传拼图时推荐的热门分词
+		>
+	</script>
+	<script type="text/template" 
+		id="data-tips"
+		data-not_valid="{:L('TIP71')}"	
+		data-confirm-delete-share="{:L('TIP72')}"	
+		data-confirm-delete-comment="{:L('TIP73')}"
+		data-length_rang="{:L('TIP27')}"
+		data-loading="{:L('LOADING')}"
+		data-load_complete="{:L('LOAD_COMPLETE')}"
+		data-required-field="{:L('REQUIRED_FIELD')}"
+		data-not_valid="{:L('NOT_VALID')}"
+		data-vcode_wrong="{:L('VCODE_WRONG')}"
+		data-email_already_existed="{:L('EMAIL_ALREADY_EXISTED')}"
+		data-password_not_valid="{:L('PASSWORD_NOT_VALID')}"
+		data-password_not_match="{:L('PASSWORD_NOT_MATCH')}"
+		>
+	</script>			
+</body>
+</html>

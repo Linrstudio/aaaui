@@ -1,0 +1,47 @@
+<include file="User:userHeader" />
+
+<div class="clearfix container">
+	<div class="messages">
+		<div class="alert alert-info"><strong>{:L('USER_SECURITY_SETTINGS')}</strong></div>
+		<form method="post" class="form-horizontal" id="update_password_form" novalidate="novalidate">
+			<fieldset>
+				<div class="control-group">
+					<label for="email" class="control-label">{:L('EMAIL')}</label>
+					<div class="controls">
+						<input type="text" name="email" disabled class="disabled placeholder valid" id="email" value='{$email}'/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label for="org_passwd" class="control-label">{:L('ORIGINAL_PASSWORD')}</label>
+					<div class="controls">
+						<input type="password" name="org_passwd" id="org_passwd">
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label for="new_passwd" class="control-label">{:L('NEW_PASSWORD')}</label>
+					<div class="controls">
+						<input type="password" name="new_passwd" id="new_passwd">
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label for="new_verify_passwd" class="control-label">{:L('RETYPE_NEW_PASSWORD')}</label>
+					<div class="controls">
+						<input type="password" name="new_verify_passwd" id="new_verify_passwd">
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label"></label>
+					<div class="controls">
+						<button class="btn btn-success" type="submit">{:L('CONFIRM_SUBMIT')}</button>
+						<span class="error" id="ajax_message"></span>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</div>
+
+<include file="Common:footer" />

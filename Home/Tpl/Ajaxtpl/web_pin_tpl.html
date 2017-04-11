@@ -1,0 +1,54 @@
+<div class="pbody" data-title="{lang edit}{lang share}" data-edit-title="{lang edit} {lang share}" data-width="650" data-css-class="publish">
+	<div id="image-area"  class="pbody url-img" data-title="{:L('COLLECT_PIC')}" data-width="800" data-css-class="publish">
+		<form id="web_pin_form" data-url="" next-url="" method="post"> 
+			<div class="img-info">
+				<div class="thumbnail">
+					<input type="hidden" name="reference_url" id="reference_url"/>
+					<input type="hidden" id="url" name="url" value=""/>
+					<input type="hidden" name="share_type" value="{:C('SHARE_TYPE.web_fetch')}"/>
+					<img id="img" src=""/>
+				</div>
+			</div>
+			<div class="more-info">
+				<div class="atlas clearfix">				
+					<div class="category_select_list clearfix" data-init="0">
+						<span class="title">{:L('CATEGORY')}</span>
+						<input id="ablum_select_id" name="album_id" type="hidden" value="1"/>
+						<a href="javascript:void(0);" class="select_btn" data-action="albumItemPopup" data-params="popup"><span class="album_select_title"></span> <span class="caret ml10"></span></a>
+					</div>
+					<div class="popup">
+						<div class="add_album"><!-- edit by porter 添加创建专辑功能 -->
+							<input class="album_name valid" type="text" data-id="album_name"/><span class="album_select_create btn btn-puzz" data-params="atlas" data-action="albumPopCreate">{:L('CREATE')}</span>
+						</div>
+						<ul class="atlas-content">
+						</ul>
+					</div>
+				</div>
+				<div class="intro clearfix">
+					<span class="title">{:L('INTRODUCE')}</span>
+					<textarea name='intro' id="intro" placeholder="{:L('TIP14')}"></textarea>	
+				</div>
+				<div class="add-tag">
+					<span id="all-tag" data-action="listTags" data-params="0,tags_list" class="text">添加适合的标签，方便大家找到</span>
+					<div class="more-tag clearfix">
+						<span data-action="closeTag" class="close-tag"></span>					
+						<div class="custom_tag">
+							<input type="text" id="addTag" placeholder="添加自定义标签(小于6个字)" />
+							<em class="btn btn-success disabled">创建</em>
+						</div>
+						<div class="tags clearfix">
+				           <ul class="tags_list" data-target-id="tags-input">
+				           </ul>
+				        </div>
+						<div class="clear"></div>
+						<input type="hidden" name="tags" class="span3" id="tags-input" placeholder="{lang tags}"/>
+					</div>
+				</div>		
+			</div>
+			<div class="submit_div">
+				<button type="submit" class="btn btn-success ajax_btn">{:L('DETERMINE')}</button>
+			</div>
+		</form>
+	</div>
+</div>
+

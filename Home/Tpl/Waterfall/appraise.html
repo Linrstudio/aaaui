@@ -1,0 +1,28 @@
+<volist name="appraiseList" id="appraise">
+	<div id="{$appraise.appraise_id}" class="pin upload">
+		<div class="puzzing">
+			<div class="share_people clearfix">
+				<span id="rate_appraise" class="clearfix">
+					<for start="0" end="$appraise['appraise']">
+						<span></span>
+					</for>
+				</span>
+				<div class="shareface">
+					<a href="#" target="_blank">
+						<img src="{$appraise['avatar_local']}{:C('MIDDLE_AVATAR')}">
+					</a> 
+				</div>
+				<div class="shareinfo">
+					<p>
+						<a class="name" href="{:U('User/myAlbums',array('user_id'=>$share['user_id']))}" target="_blank">{$appraise['nickname']}</a>
+						<span>&nbsp;在&nbsp;</span>
+						{$appraise['create_time']}
+						<span>&nbsp;评价说：&nbsp;</span>
+						{$appraise['appraise_content']}
+					</p>
+				</div>
+			</div><!-- .share_people -->
+		</div><!-- .puzzing -->
+	</div><!-- .pin --> 
+</volist>
+<div id="appended_container"></div>

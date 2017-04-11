@@ -1,0 +1,75 @@
+<script type="text/template" id="comment_waterfall_tpl" reload="true">
+ {{#data}} 
+<div class="comment hide">
+	<div class="shareface"><a class="trans07" href="javascript: void(0);" data-user-id="{{user_id}}" data-user-profile="1"><img src="{{user_avatar}}" width="30" height="30"></a></div>
+	<div class="shareinfo"><a class="trans07" href="javascript: void(0);" data-user-id="{{user_id}}" data-user-profile="1">{{nickname}}</a><p>{{comment_txt}}</p></div>
+</div>
+ {{/data}} 
+</script>
+<script type="text/template" id="comment_detail_tpl" reload="false">
+ // edit by porter 修改评论结构
+ {{#data}} 
+	 <li id="comment-{{comment_id}}">
+		<div class="content">
+		    <div class="info">
+		        <a href="javascript:void(0)" class="user_img"><img src="{{user_avatar}}" alt=""></a>
+		        <a href="javascript:void(0)" class="user_name">{{nickname}}</a>
+		        <span class="time">{{create_time}}</span>
+		        <a class="reply" onclick="reply({{comment_id}})" href="javascript:void(0)">回复</a>
+		        <a data-action="delComment" data-params="{{comment_id}}" href="javascript:void(0)">删除</a>
+		        <a href="javascript:void(0)" data-params="{{comment_id}},1" data-action="commentSupport" class="praise ">顶(<span id="support-{{comment_id}}">0</span>)</a>
+		        <a href="javascript:void(0)" data-params="{{comment_id}},2" data-action="commentSupport" class="trample ">踩(<span id="nonsupport-{{comment_id}}">0</span>)</a>
+		    </div>
+		    <div class="text">
+		        {{{comment_txt}}}
+		    </div>
+		</div>
+		<ul id="reply_{{comment_id}}"></ul>
+	</li>
+ {{/data}} 
+</script>
+<!--edit by porter at 2014-01-16 11:30:08 添加二级评论模版-->
+<script type="text/template" id="reply_detail_tpl" reload="false">
+ // edit by porter 修改评论结构
+ {{#data}} 
+	<li id="reply-{{reply_id}}">
+		<div class="content">
+			<div class="info">
+		   		<a href="javascript:void(0)" class="user_img"><img src="{{user_avatar}}" alt=""></a>
+		        <a href="javascript:void(0)" class="user_name">{{nickname}}</a>
+	           	<span class="time">{{create_time}}</span>
+	           	<a data-action="delCommentreply" data-params="{{reply_id}}" href="javascript:void(0)">删除</a>
+		    </div>
+		    <div class="text">
+		        {{{comment_txt}}}
+		    </div>
+		</div>
+	</li>  
+ {{/data}} 
+</script>
+<script id="user_profile_tpl" type="text/template">
+	<b class="arrow_t"><i class="arrow_inner_t"></i></b>
+    {{#success}}
+	{{#data}}
+    <div class="info">
+        <a href="{{user.home}}" class="first" target="_blank"><img src="{{user.avatar}}" class="avatar photo-middle" onerror="javascript:this.src=base_url+'assets/img/avatar_large.jpg';" width="50" height="50" /></a>
+        <p><b><a href="{{user.home}}" target="_blank">{{user.nickname}} {{user.group_title}}</a></b><a href="javascript:;" data-action="sendMessageOpen" data-params="{{user.nickname}}"><img src="<?php echo base_url();?>assets/img/message.png"></a></p>
+		<p><a href="{{user.home}}" target="_blank">{{user.credits.name}}:{{user.credits.value}}</a><a href="{{user.home}}" target="_blank">{{user.ext_credits_1.name}}:{{user.ext_credits_1.value}}</a><a href="{{user.home}}" target="_blank">{{user.ext_credits_2.name}}:{{user.ext_credits_2.value}}</a><a href="{{user.home}}" target="_blank">{{user.ext_credits_3.name}}:{{user.ext_credits_3.value}}</a></p>
+        <p class="meta"><a href="{{user.home}}" target="_blank">{lang follow}{{user.total_follows}}</a><em class="dot">●</em><a href="{{user.home}}" target="_blank">{{user.total_followers}}{lang fans}</a><em class="dot">●</em><a href="{{user.home}}" target="_blank">{{user.total_albums}}{lang album}</a><em class="dot">●</em><a href="{{user.home}}" target="_blank">{{user.total_shares}}{lang share}</a></p>
+    </div>
+    <div class="mark_list">
+    {{#shares}}
+    <a href="{{link}}" target="_blank">{{#image_path}}<img src="<?php echo base_url_r();?>{{image_path}}_square.jpg" title="{{title}}"/>{{/image_path}}{{^image_path}}<span class="label label-info">{lang article}</span>{{/image_path}}</a>
+    {{/shares}}
+    </div>
+    <div class="operate">
+        {{{relation}}}
+    </div>
+	{{/data}}
+    {{/success}}
+    {{^success}}
+    <p class="message">{{{message}}}</p>
+    {{/success}}
+
+    <b class="arrow_b"><i class="arrow_inner_b"></i></b>
+</script>

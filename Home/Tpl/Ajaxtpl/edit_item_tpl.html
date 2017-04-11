@@ -1,0 +1,30 @@
+<div class="pbody" data-title="{lang edit}{lang share}" data-edit-title="{lang edit} {lang share}" data-width="650" data-css-class="publish">
+	<div id="image-area"  class="pbody url-img" data-title="{:L('EDIT_IMAGE')}" data-width="800" data-css-class="publish">
+		<form id="edit_item_form" data-url="" next-url="" method="post"> 
+			<div class="more-info">
+				<div class="atlas">
+					<div class="category_select_list clearfix" data-init="0">
+						<span class="title">{:L('ALBUM')}</span>
+						<input id="share_id" name="share_id" type="hidden" value="1"/>
+			    		<input id="ablum_select_id" name="album_id" type="hidden" value="1"/>
+		    			<a href="javascript:void(0);" class="select_btn" data-action="albumItemPopup" data-params="popup"><span class="album_select_title"></span> <span class="caret ml10"></span></a>
+		           	</div>
+					<div class="popup">
+						<div class="add_album"><!-- edit by porter 添加创建专辑功能 -->
+							<input class="album_name valid" type="text" data-id="album_name"/><span class="album_select_create btn btn-puzz" data-params="atlas" data-action="albumPopCreate">{:L('CREATE')}</span>
+						</div>
+						<ul class="atlas-content">
+						</ul>
+					</div>
+				</div>
+				<div class="intro clearfix">
+					<span class="title">{:L('INTRODUCE')}</span>
+					<textarea name='intro' id="intro" class="large" placeholder="{:L('TIP14')}"></textarea>
+				</div>				
+			</div>
+			<div class="submit_div">
+				<button type="submit" class="btn btn-success ajax_btn">{:L('DETERMINE')}</button>
+			</div>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,70 @@
+<meta name="viewport" content="width=device-width, initial-scale=1"  />
+<!--[if  lt IE 9]>
+<script  src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+<![endif]-->
+<!-- 需要加载的css文件 -->
+<css href="__PUBLIC__/Css/common.css" />
+<css href="__PUBLIC__/Css/diuzhuan.css" />
+
+<!-- 需要加载的js文件 -->
+<script>
+var base_url = '<?php echo base_url();?>';
+var base_url_r = '<?php echo base_url_r();?>';
+var JSMENU = [];
+JSMENU['active'] = [];
+JSMENU['timer'] = [];
+JSMENU['drag'] = [];
+JSMENU['layer'] = 0;
+JSMENU['zIndex'] = {'win':200,'menu':300,'dialog':400,'prompt':500};
+JSMENU['float'] = '';
+var BROWSER = {};
+var USERAGENT = navigator.userAgent.toLowerCase();
+browserVersion({'ie':'msie','firefox':'','chrome':'','opera':'','safari':'','mozilla':'','webkit':'','maxthon':'','qq':'qqbrowser'});
+if(BROWSER.safari) {
+	BROWSER.firefox = true;
+}
+BROWSER.opera = BROWSER.opera ? opera.version() : 0;
+function browserVersion(types) {
+	var other = 1;
+	for(i in types) {
+		var v = types[i] ? types[i] : i;
+		if(USERAGENT.indexOf(v) != -1) {
+			var re = new RegExp(v + '(\\/|\\s)([\\d\\.]+)', 'ig');
+			var matches = re.exec(USERAGENT);
+			var ver = matches != null ? matches[2] : 0;
+			other = ver !== 0 && v != 'mozilla' ? 0 : other;
+		}else {
+			var ver = 0;
+		}
+		eval('BROWSER.' + i + '= ver');
+	}
+	BROWSER.other = other;
+}
+</script>
+<js href="__PUBLIC__/Js/jquery-1.7.1.min.js" />
+<js	href="__PUBLIC__/Js/diuzhuan.js" />
+<js	href="__PUBLIC__/Js/jquery-scrolltofixed-min.js" />
+<js	href="__PUBLIC__/Js/jquery.slides.min.js" />
+<js	href="__PUBLIC__/Js/jquery.pjax.js" />
+<js href="__PUBLIC__/Js/onightjar/onightjar.mini.js" />
+<js href="__PUBLIC__/Js/onightjar/bootstrap.min.js" />
+<js href="__PUBLIC__/Js/jquery.cityselect.js" />
+<notempty name="currentUser['user_id']">
+<script>
+$(document).ready(function() {
+	// setTimeout(function() {
+	// 	check_message('reward',true,3000,700);
+	// }, 1000);
+	//setInterval(function(){
+	//	check_message('user_message',false,0,0);
+	//	}, 20000 );
+	setTimeout(function() {
+		check_message('user_message',false,0,0);
+	}, 2000);  //检查是否有通知消息
+	// setTimeout(function() {
+	// 	check_message('alert',false,0,0);
+	// }, 2200);
+});
+</script>
+</notempty>
+

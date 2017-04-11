@@ -1,0 +1,26 @@
+<include file="Common:header" />
+<div class="container">
+	<div class="navmenu clearfix">
+		<div class="navmenu-categorys clearfix">
+			<div id="container">
+				<h1 class="active page_title">{$category_name}</h1>
+			</div>
+		</div>
+	</div>
+	<div id="waterfall_outer" data-fullscreen="0">
+		<div id="waterfall" class="masonry clearfix" data-animated="0" data-pin-width="250">
+			<div class="pin_tags pin">
+				<h3 class="tags_title">标签</h3>
+				<div class="content clearfix">
+					<volist name="hot_tags" id="tag">
+						<a href="{:U('Index/tag',array('tag'=>$tag))}">{$tag}</a>
+					</volist>
+				</div>
+			</div>
+			<include file="Waterfall:pin"/>
+		</div>
+	</div>
+</div>
+
+
+<include file="Common:footer" />

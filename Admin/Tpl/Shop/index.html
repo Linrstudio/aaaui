@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <title>控制面板</title>
+  <include file="Common:intoHead" />
+</head>
+<body class="objbody" scroll="no">
+<div class="tablebox">	
+	<div class="tablebox_header">   
+		<a class="btn-success pull-left" href="{:U('Shop/addShop')}">添加商家</a>
+	</div>
+	<div class="tablebox">
+		<table class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>商家名称</th>
+					<th>缩写</th>
+					<th>联系电话</th>
+					<th>产品数</th>
+					<th>成功订单</th>
+					<th>销售额(元)</th>
+					<th>管理</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="shops" id="shop">
+					<tr>
+						<td style="word-wrap:break-word;width:50px;">{$shop.name}</td>
+						<td style="word-wrap:break-word;width:50px;">{$shop.short_name}</td>
+						<td style="word-wrap:break-word;width:50px;">{$shop.phone}</td>
+						<td style="word-wrap:break-word;width:100px;">{$shop.productNum}</td>
+						<td style="word-wrap:break-word;width:150px;">{$shop.orderNum}</td>
+						<td style="word-wrap:break-word;width:300px;">{$shop.sales}</td>
+						<td style="word-wrap:break-word;width:80px;">
+							<a href="{:U('Shop/editShop',array('shop_id'=>$shop['shop_id']))}">编辑</a>
+							<a id="del" href="{:U('Shop/delShop',array('shop_id'=>$shop['shop_id']))}">删除</a>
+						</td>
+					</tr>
+				</volist>
+			</tbody>
+		</table>
+		<div class="pagination pagination-centered">{$show}</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$('.btn').click(function() {
+		if($('#keyword').val() == ''){
+			return false;
+		}
+	});
+	$('#del').click(function() {
+		if(!window.confirm("是否确定删除")){
+			return false;
+		};
+	});
+</script>
+</body>
+</html>

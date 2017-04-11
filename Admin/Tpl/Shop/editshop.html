@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <title>控制面板</title>
+  <include file="Common:intoHead" />
+  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=3E91c52825e954e8a0450eeb709abadd"></script>
+	<style type="text/css">
+		.form-horizontal{
+			position: relative;
+		}
+		#allmap{
+		 	border: 1px solid #AAAAAA;
+		    height: 370px !important;
+		    overflow: hidden !important;
+		    position: absolute !important;
+		    left: 430px !important;
+		    top: 0 !important;
+		    width: 600px !important;
+		}
+	</style>
+</head>
+<body class="objbody">
+    <div class="tablebox_footer">
+		<form action="{:U('Shop/editShop')}" method="post" class="form-horizontal">
+			<input type="hidden" name="shop_id" value="{$shop_info['shop_id']}"/>
+			<fieldset>
+				<div class="control-group">
+					<label class="control-label" for="input01">所在城市：</label>
+					<div class="controls">
+						<select name="city" id="city">
+							<volist name='cityList' id='city' >
+								<option value="{$city.area_id}" <if condition="$city['area_id'] eq $shop_info['city_id']">selected="selected"</if>>{$city.area_name}</option>
+							</volist>
+						</select>
+					</div>
+				</div>
+				<div id="district_control" class="control-group">
+					<label class="control-label" for="input01">所在区：</label>
+					<div class="controls">
+						<select name="district" id="district">
+							<volist name='districtList' id='district' >
+								<option value="{$district.area_id}" <if condition="$district['area_id'] eq $shop_info['district_id']">selected="selected"</if>>{$district.area_name}</option>
+							</volist>
+						</select>
+					</div>
+				</div>
+				<div id="street_control" class="control-group">
+					<label class="control-label" for="input01">所在街道：</label>
+					<div class="controls">
+						<select name="street" id="street">
+							<volist name='streetList' id='street' >
+								<option value="{$street.area_id}" <if condition="$street['area_id'] eq $shop_info['area_id']">selected="selected"</if>>{$street.area_name}</option>
+							</volist>
+						</select>
+					</div>
+				</div>
+				<div class="control-group"  id="addArea" style="display:none">
+					<label class="control-label" for="input01">添加城市和街道：</label>
+					<div class="controls">
+						<a href="{:U('Shop/addArea')}">点击添加</a>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="input01">一级服务：</label>
+					<div class="controls">
+						<select name="service" id="service">
+							<volist name='serviceList' id='service' >
+								<option value="{$service.service_id}" <if condition="$service['service_id'] eq $shop_info['pservice_id']">selected="selected"</if>>{$service.service_name}</option>
+							</volist>
+						</select>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="input01">二级服务：</label>
+					<div class="controls" id="sonService">
+						<volist name='sonSeriveList' id='son' >
+							<label><input name="sonService[{$son['service_id']}]" type="checkbox" value="{$son['service_id']}" />{$son['service_name']}</label>
+						</volist>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="input01">商家名称：</label>
+					<div class="controls">
+						<input type="text" class="input-xlarge" id="name" name="name" value="{$shop_info['name']}"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="input01">商家名称缩写：</label>
+					<div class="controls">
+						<input type="text" class="input-xlarge" id="short_name" name="short_name" value="{$shop_info['short_name']}"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="input01">商家地址：</label>
+					<div class="controls">
+						<input type="text" class="input-xlarge" id="address" name="address" value="{$shop_info['address']}"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="input01">商家电话：</label>
+					<div class="controls">
+						<input type="text" class="input-xlarge" id="phone" name="phone" value="{$shop_info['phone']}"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="input01">地图位置：</label>
+					<div class="controls">
+						<a id="map" href="#">点此将标记放到具体的位置<br/>最后点下面提交按钮保存</a>						
+					</div>
+					<div class="controls">
+						<input type="text" class="input-xlarge" id="gps" name="gps" readOnly="true" value="{$shop_info['gps']}"/>
+					</div>
+				</div>				
+				<div id="allmap"></div>
+				<div class="form-actions">
+					<button type="submit" class="btn">保存</button>
+					<a href="{:U('Shop/index')}" class="btn">返回</a>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+$(document).ready(function() {
+	$(":checkbox").each(function(i,val) {
+		var sonServiceId = $(val).val();
+		var arr = {$shop_info.services};
+		var isIn = $.inArray(sonServiceId,arr);
+		if(isIn >= 0){
+			$(this).attr("checked","checked");
+		}
+	});	
+});
+
+$('#service').change(function() {
+	var service_id = $('#service').val();
+
+	$.ajax({
+		url: "{:U('Shop/getServiceById')}",
+		type: 'post',
+		dataType: 'json',
+		data: {service_id: service_id},
+		success: function(data){
+			$('#sonService').html('');
+			if(data){
+				$.each(data,function(i, service) {
+					$('#sonService').append('<label><input name="sonService['+service.service_id+']" type="checkbox" value="'+service.service_id+'" />'+service.service_name+'</label>');
+				});
+				var pservice_id = {$shop_info.pservice_id};
+				if(service_id == pservice_id){
+					$(":checkbox").each(function(i,val) {
+						var sonServiceId = $(val).val();
+						var arr = {$shop_info.services};
+						var isIn = $.inArray(sonServiceId,arr);
+						if(isIn >= 0){
+							$(this).attr("checked","checked");
+						}
+					});
+				}
+			}else{
+				$('#sonService').append("<a href={:U('Shop/addService')}>点击添加</a>");
+			}			
+		}
+	});
+});
+
+
+$('#city').change(function() {
+	var area_id = $(this).val();
+	$.ajax({
+		url: "{:U('Shop/getAreaById')}",
+		type: 'post',
+		dataType: 'json',
+		data: {area_id: area_id},
+		success: function(data){			
+			if(data){
+				$('#district_control').show();
+				$('#district').html('');
+				$.each(data,function(i, area) {
+					$('#district').append('<option value='+area.area_id+'>'+area.area_name+'</option>');
+				});
+				var area_id = $('#district').val();
+				$.ajax({
+					url: "{:U('Shop/getAreaById')}",
+					type: 'post',
+					dataType: 'json',
+					data: {area_id: area_id},
+					success: function(data){
+						$('#street').html('');			
+						if(data){
+							$('#street_control').show();
+							$.each(data,function(i, area) {
+								$('#street').append('<option value='+area.area_id+'>'+area.area_name+'</option>');
+							});
+						}else{
+							alert('请先添加所属城市的相关区域或者街道!');
+							$('#addArea').show();
+						}			
+					}
+				});
+			}else{
+				alert('请先添加所属城市的相关区域或者街道!');
+				$('#addArea').show();
+			}
+		}
+	});	
+});
+
+$('#district').change(function() {
+	var area_id = $(this).val();
+	$.ajax({
+		url: "{:U('Shop/getAreaById')}",
+		type: 'post',
+		dataType: 'json',
+		data: {area_id: area_id},
+		success: function(data){			
+			if(data){
+				$('#street_control').show();
+				$('#street').html('');
+				$.each(data,function(i, area) {
+					$('#street').append('<option value='+area.area_id+'>'+area.area_name+'</option>');
+				});
+			}else{
+				alert('请先添加所属城市的相关区域或者街道!');
+				$('#addArea').show();
+			}			
+		}
+	});	
+});
+
+$('#map').click(function() {	
+	var city = $('#city').children('option:selected').text();	
+	var map = new BMap.Map("allmap");            // 创建Map实例
+	map.centerAndZoom(city,13);                   // 初始化地图,设置城市和地图级别。	
+	map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+	map.addControl(new BMap.OverviewMapControl({isOpen:true, anchor: BMAP_ANCHOR_TOP_RIGHT}));   // 添加缩略地图控件
+	map.enableScrollWheelZoom();    //启用滚轮放大缩小，默认禁用
+	map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
+	map.addEventListener("click",function(e){
+	    $('#gps').val(e.point.lng + "," + e.point.lat);
+	});
+});
+
+</script>

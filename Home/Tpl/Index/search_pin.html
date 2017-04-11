@@ -1,0 +1,30 @@
+<include file="Common:header" />
+
+<div class="container">
+	<include file="Index:search_controller" />
+
+	<div id="waterfall_outer">
+		<div id="waterfall" class="masonry clearfix" data-animated="0" data-pin-width="250">
+			<div class="pin screening_conditions">
+				<h3 class="title">Show：</h3>
+				<ul>
+					<form>
+						<li>
+							<label>
+								<input onClick="location.href='{:U('Index/search',array('type'=>'pin','scope'=>'all','keyword'=>$keyword))}'" type="radio" {$scope!='mine'?'checked':''} name="scope" />{:L('ALL_PINS')}
+							</label>
+						</li>
+						<li>
+							<label>
+								<input onClick="location.href='{:U('Index/search',array('type'=>'pin','scope'=>'mine','keyword'=>$keyword))}'" type="radio" {$scope=='mine'?'checked':''} name="scope" />{:L('MY_PINS')}
+							</label>
+						</li>
+					</form>
+				</ul>
+			</div>
+				<include file="Waterfall:pin"/>
+			</div>
+		</div>
+	</div>
+
+	<include file="Common:footer" />

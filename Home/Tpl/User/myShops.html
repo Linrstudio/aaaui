@@ -1,0 +1,48 @@
+	<include file="User:userHeader" />
+<div class="container mt20">
+	<div class="span12 main">
+		<div class="container">	
+			<div class="hot_users container" data-fullscreen="0" id="waterfall_outer">
+				<div data-animated="0" data-pin-width="250" id="waterfall" class="span12 ml0 masonry">
+					<volist name="goodshops" id="goodshop">
+						<div class="pin masonry-brick">
+							<div class="hot_users">
+								<div class="user-info">
+									<h4><a target="_blank" href="/u/698">{$goodshop['store_name']}</a></h4>
+									<div class="info">
+										<span>x</span>专辑
+										&nbsp;•&nbsp;
+										<span>x</span>收藏
+									</div>
+								</div>
+								<div class="images clearfix">
+									<div class="user-img">
+										<a href="#">
+											<img src="{$goodshop['shop_logo']}{:C('LARGE_PIC')}" data-pinit="registered">
+										</a>
+									</div>
+										<div class="new-img clearfix">
+										<volist name="goodshop['shares']" id="share">
+											<a href="#"><img src="{$share['image_path']}{:C('SQUARE_PIC')}"/></a>
+										</volist>
+									</div>
+								</div>
+								<div class="add-attention">
+								<!-- 
+									<span class="698-relation">
+										<a class="relation-box" data-params="698" data-action="addFollow" href="javascript:void(0);">+关注</a>
+									</span>		-->
+									<?php echo $goodshop['relationView'];?>关注
+								</div>
+							</div><!-- .hot_users -->
+						</div><!-- .pin -->
+					</volist>
+				</div>
+			</div>	
+			
+		</div>
+	</div>
+	  	<div class="pagination pagination-centered">{$show}</div>
+</div>
+
+<include file="Common:footer" />

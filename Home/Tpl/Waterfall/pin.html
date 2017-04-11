@@ -1,0 +1,120 @@
+<volist name="shares" id="share">
+	<div id="{$share.share_id}" class="pin upload">
+		<div class="puzzing">
+			<div class="share_img">
+				<a href="/pin/{$share['share_id']}" id="{$share['share_id']}_image">
+					<img class="s_image" src="{$share['image_path']}{:C('MIDDLE_PIC')}">
+				</a>
+			</div>
+			<div class="puzzing-txt">
+				<div class="actions clearfix">
+					<a class="forwarded" data-params="{$share['share_id']}" data-action="forwarding" href="javascript:void(0);">{:L('COLLECT')}</a>
+					<a class="add-comment" data-params="{$share['share_id']}" data-action="addCommentBox" href="javascript:void(0);">{:L('COMMENT')}</a>				
+					{$share['favoriteShare']}
+				</div>						
+			</div>
+			<div class="share_people clearfix">
+				<div class="shareface">
+					<a href="{:U('User/myAlbums',array('user_id'=>$share['user_id']))}">
+						<img src="{$share['avatar_local']}{:C('MIDDLE_AVATAR')}">
+					</a> 
+				</div>
+				<div class="shareinfo">
+					<p>
+						<a class="name" href="{:U('User/myAlbums',array('user_id'=>$share['user_id']))}">{$share['nickname']}</a>
+						<span>&nbsp;{:L('RELEASE_TO')}&nbsp;</span>
+						<a target="_blank" href="/book/{$share['album_id']}">{$share['album_title']}</a>
+						<span class="last">&nbsp;{:L('IN_ALBUM')}</span>
+					</p>
+				</div>
+				<div class="clear"></div>
+				<notempty name="share['intro']">
+					<p class="pin_text">
+						{$share['intro']}
+					</p>
+				</notempty>
+			</div><!-- .share_people -->
+			<div class="share_comments" id="{$share['share_id']}_comments">
+				<volist name="share['comments']" id="comment">
+					<div class="comment">
+						<div class="shareface"><a class="trans07" href="{:U('User/myAlbums',array('user_id'=>$comment['user_id']))}" data-user-id="{$comment['user_id']}" data-user-profile="1"><img src="{$comment['user_avatar']}{:C('MIDDLE_AVATAR')}" class="avatar" width="30" height="30"></a></div>
+					<div class="shareinfo"><a href="{:U('User/myAlbums',array('user_id'=>$comment['user_id']))}" data-user-id="{$comment['user_id']}" data-user-profile="1">{$comment['nickname']}</a><p>{$comment['comment_txt']}</p></div>
+				</div>
+				</volist>
+			</div>
+			<div class="share_comments commentdiv hide" id="commentdiv_{$share['share_id']}">
+				<div class="comment">
+					<div class="shareface">
+						<img src="{$share['avatar_local']}{:C('MIDDLE_AVATAR')}">
+					</div>
+					<div class="shareinfo">
+						<textarea id="commentbox_{$share['share_id']}" class="pull-left"></textarea>
+						<button class="btn pull-right" data-params="{$share['share_id']},comment_waterfall_tpl" data-action="addComment">{:L('COMMENT')}</button>
+						<span class="smalltxt"><i>140</i>/140</span>					
+					</div>
+				</div>
+			</div><!-- .commentdiv -->
+			<div class="tool_info">
+				<ul class="tools clearfix">
+					<eq name="share['user_id']" value="$currentUser['user_id']">
+						<li class="settings pull-right">
+							<a class="setting" data-toggle="dropdown">{:L('SETTING')}</a>
+							<div class="dropdown-menu no-minwidth">
+								<a data-params="{$share['share_id']}" data-action="editOShareOpen" rel="tooltip" href="javascript:void(0);" data-original-title="{:L('EDIT')}">
+									<i class="icon-edit"></i>
+								</a>
+								<a data-params="{$share['share_id']}" data-action="deleteShare" rel="tooltip" href="javascript:void(0);" data-original-title="{:L('DELETE_SHARE')}">
+									<i class="icon-remove"></i>
+								</a>
+							</div>
+						</li>
+					</eq>
+					<li class="comments" id="{$share['share_id']}_comment" data-params="{$share['share_id']}" data-action="addCommentBox">{$share['total_comments']}</li>
+					<li class="fav" data-params="{$share['share_id']}" data-action="addLike"><em>{$share['total_likes']}</em></li>					
+				</ul>
+			</div><!-- .tool_info -->
+		</div><!-- .puzzing -->
+	</div><!-- .pin --> 
+</volist>
+<div id="appended_container"></div>
+<script>
+$(document).ready(function(){
+var winWidth = $(document).width();
+	$(document).ready(function() {
+	    $('#appended_container .appended_wrap,#ui_puzz_dialog,#ui_message_dialog').live('mousedown', function(e) {
+	        e.stopPropagation();
+	    });
+	 });
+	var local = window.location.href;
+	$(document).mousedown(function(e){
+		if(e.clientX < winWidth){
+			$('#appended_container').hide().removeClass('show');
+	        $('body').removeClass('noScroll').css('width', 'auto');
+	        history.pushState(null, null, local);  //pushState¸Ä±äUrlÎªÉÏÒ»¼¶url
+	        $('#appended_container').empty();
+		}		
+    }); 
+    // µã»÷Í¼Æ¬ÏêÏ¸Ò³Ãæ¹Ø±Õ°´Å¥
+	$('#container_close').live('mousedown',function(){
+		$('#appended_container').hide().removeClass('show');
+        $('body').removeClass('noScroll').css('width', 'auto');
+        history.pushState(null, null, local);  //pushState¸Ä±äUrlÎªÉÏÒ»¼¶url
+	});
+	$.pjax({
+		selector: '.pin .share_img a',
+		container: '#appended_container',		
+		cache: false, 		
+		callback: function(){
+		}
+	});
+
+	$.pjax({  //µ¯³ö´°¿ÚÍ¬×¨¼­Æ´Í¼µÄµã»÷ÊÂ¼þ. js²»·ÅÔÚappendContentnewÒ³ÃæÊÇ·ÀÖ¹¸Ãjs±»ÖØ¸´¼ÓÔØ¶à´Î
+		selector: '.current-board a',
+		container: '#appended_container', //ÄÚÈÝÌæ»»µÄÈÝÆ÷
+		cache: false,  //ÊÇ·ñÊ¹ÓÃ»º´æ
+		callback: function(){
+		}
+	});
+
+});
+</script>

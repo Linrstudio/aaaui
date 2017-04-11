@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <title>控制面板</title>
+  <include file="Common:intoHead" />
+</head>
+<body class="objbody">
+	<div class="tablebox_footer">
+		<form action="{:U('Shop/addService')}" method="post" class="form-horizontal">
+			<fieldset>   
+				<div class="control-group">
+					<label class="control-label" for="input01">添加一级服务：</label>
+					<div class="controls">
+						<input type="text" class="input-xlarge" id="parentService" name="parentService" />
+						<button type="submit" class="btn">保存</button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+    <div class="tablebox_footer">
+		<form action="{:U('Shop/addService')}" method="post" class="form-horizontal">
+			<fieldset>
+				<div class="control-group">
+					<label class="control-label" for="input01">添加二级服务：</label>
+					<div class="controls">
+						<select name="service" id="service">
+							<volist name='serviceList' id='service' >
+								<option value="{$service.service_id}">{$service.service_name}</option>
+							</volist>
+						</select>
+						<input type="text" class="input-xlarge" id="sonService" name="sonService" />
+						<button type="submit" class="btn">保存</button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</div>	
+</body>
+</html>

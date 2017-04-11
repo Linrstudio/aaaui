@@ -1,0 +1,21 @@
+<include file="Goodshop:shopHeader" />
+
+<div id="waterfall_outer">
+	<div id="waterfall" class="masonry clearfix" data-animated="0" data-pin-width="250">
+		<if condition="$isShopKeeper eq true">
+			<div class="pin no-border home-album">
+				<a data-params="{$shop_id},{$user_id}" title="发表评论" data-action="openAppraiseDialog" class="addpinrep">
+					<i></i>
+					<span >
+						发表评论
+					</span>
+				</a>
+			</div>
+		</if>
+		<include file="waterfall:appraise"/>
+	</div>
+</div>
+
+</div><!-- .container -->
+
+<include file="Common:footer" />

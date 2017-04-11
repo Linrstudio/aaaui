@@ -1,0 +1,18 @@
+
+<div class="porter-message">
+<volist name="messages" id="message" key="k">
+	<li class="{$k<=$message_count?'new':''}">
+		<a class="user_img" href="#">
+			<img src="{$message['user_avatar']}{:C('MIDDLE_AVATAR')}">
+		</a>
+		<a class="name">{$message['fnickname']}：</a>
+		<span class="text">{$message['message_txt']}</span>
+		<span class="time">{$message['create_time']|friendlyDate}</span>
+	</li>
+</volist>
+<empty name="messages">
+	<li class="no_info">
+		<span class="text">你还没有新消息！</span>
+	</li>
+</empty>
+</div>

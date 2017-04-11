@@ -1,0 +1,85 @@
+<include file="Goodshop:shopHeader" />
+
+<div class="personal-homepage">
+	<div class="shopset_content">
+		<div class="alert alert-info">
+			<strong>消费券验证</strong>
+		</div>
+		<form id='ticket_form' class="form-horizontal">
+			<fieldset>
+				<input type="hidden" name='shop_id' id="shop_id" value='{$shop_id}'>
+				<div class="control-group">
+					<label class="control-label"></label>
+					<div class="controls">
+						<span class="shop_name" style='display:none'></span>		
+					</div>
+				</div>					
+				<div class="control-group">
+					<label class="control-label">消费券编号：</label>
+					<div class="controls">
+						<input type="text" name='number' id='number'>
+						<div id='notice'></div>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">消费券券密码：</label>
+					<div class="controls">
+						<input type="text" name='password' id='password'>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label"></label>
+					<div class="controls">
+						<button id='submit' type="submit" class="btn btn-success">消费</button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</div>
+
+</div><!-- .container -->
+
+<include file="Common:footer" />
+
+<SCRIPT TYPE="text/javascript">
+	$('#number').focusout(function() {
+		var number = $(this).val();
+		if(number){
+			var shop_id = $('#shop_id').val();
+			$.ajax({
+				url: "{:U('Goodshop/checkNumber')}",
+				type: 'POST',
+				data: {number: number,shop_id: shop_id},
+				success: function(result){
+					$('.shop_name').html(result.message).show();
+					if (result.data.status == 0) {
+						$('#notice').html('该消费券可以使用!');
+					}else{
+						$('#notice').html('该消费券不能使用!');
+					}
+				}
+			});
+		}else{
+			$('#notice').html('该消费券编号不能为空!');
+		}
+	});
+
+	$('#submit').click(function() {
+		$.ajax({
+			url: "{:U('Goodshop/check_consume')}",
+			type: 'post',
+			dataType: 'json',
+			data: $('#ticket_form').serialize(),
+			success: function(result){
+				if(result.success){
+					showSuccess(result.message);
+					window.setTimeout(window.location.reload(),10000); 
+				}else{
+					showError(result.message);
+				}
+			}
+		});
+		return false;
+	});
+</SCRIPT>

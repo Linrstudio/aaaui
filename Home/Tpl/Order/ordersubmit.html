@@ -1,0 +1,41 @@
+<include file="Common:header" />
+
+<div class="container">
+	<div id="order_checkout" class="personal-homepage ">
+		<h3>提交订单</h3>		
+		<table id="report" class="text_c" cellspacing=0 >
+			<tbody>
+				<tr>
+					<th>商品</th>
+					<th>数量</th>
+					<th>单价</th>
+					<th>总价</th>
+				</tr>
+				<tr>
+					<td width="45%">{$orderInfo.project_name}</td>
+					<td width="20%">{$orderInfo.ordbuynum}</td>
+					<td width="20%">¥{$orderInfo.ordprice} </td>
+					<td class="prices" width="15%">¥{$orderInfo.ordfee}</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="control-group contact">
+			<label class="control-label">您的手机号为：{$orderInfo.phone}</label>
+		</div>
+		<div class="control-group postscript">
+			<label class="control-label">订单附言：{$orderInfo.ordtitle}</label>					
+		</div>
+		<form action="{:U('Pay/doalipay')}" method='post' class="form-horizontal">		
+			<fieldset>
+				<input type='hidden' name='order_id' value='{$orderInfo.order_id}'>
+				<input type='hidden' name='subject' value='{$orderInfo.project_name}'>
+				<input type='hidden' name='ordprice' value='{$orderInfo.ordprice}'>
+				<input type='hidden' name='ordbuynum' value='{$orderInfo.ordbuynum}'>
+				<input type='hidden' name='phone' value='{$orderInfo.phone}'>				
+			</fieldset>
+			<button type="submit" class="btn btn-success">确认无误，去付款</button>
+		</form>
+	</div>
+</div>
+
+<include file="Common:footer" />

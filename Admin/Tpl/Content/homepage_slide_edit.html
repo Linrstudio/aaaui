@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <title>控制面板</title>
+  <include file="Common:intoHead" />
+</head>
+<body>
+<div class="tablebox_footer">
+   <form action="{:U('Content/index',array('act'=>'edit_submit'))}" method="post" class="form-horizontal">
+   <fieldset>
+   <div class="control-group">
+      <label class="control-label" for="input01"></label>
+      <div class="controls" id="imgview">
+      	<img src="{:C('SLIDE_PATH')}{$slide['image_url']}" height="200" />
+      </div>
+    	<input type="hidden" id="key" name="key" value="{$slide['key']}"/>
+   </div>
+   <div class="control-group">
+      <label class="control-label" for="input01">标题</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" id="title" name="title" value="{$slide['title']}"/>
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="input01">链接地址</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" id="link_url" name="link_url" value="{$slide['link_url']}"/>
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="input01">显示顺序</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" id="order" name="order" value="{$slide['order']}"/>
+      </div>
+    </div>
+   <div class="control-group">
+      <label class="control-label" for="input01">图片描述</label>
+      <div class="controls">
+        <textarea rows="6" class="span3" id="desc" name="desc">{$slide['desc']}</textarea>
+      </div>
+    </div>
+    <div class="form-actions">
+  <button type="submit" class="btn">保存</button>
+  </div>
+  </fieldset>
+</form>
+</div>
+</body>
+</html>

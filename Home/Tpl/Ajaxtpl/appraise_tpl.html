@@ -1,0 +1,31 @@
+
+<div>
+	<!-- 抓取网页图片 -->
+	<div id="appraise_d" class="pbody grade" data-title="发表评价" data-width="800">
+		<div class="rating clearfix">
+			<span class="title">请您为本店打分：</span>
+			<span class="rate clearfix">
+				<a href="javascript:void()"></a>
+				<a href="javascript:void()"></a>
+				<a href="javascript:void()"></a>
+				<a href="javascript:void()"></a>
+				<a href="javascript:void()"></a>
+			</span>
+		</div>
+		<form id="appraiseSubmit" class="form-horizontal">		
+			<fieldset>
+			<div class="content">
+				<textarea name='appraise_content' placeholder="亲，来点文字，请客观的评价哦!"></textarea>
+			</div>
+			<input type='hidden' id='shop_id' name='shop_id' value='{$shop_id}'>
+			<input type='hidden' id='user_id' name='user_id' value='{$user_id}'>
+			<input type='hidden' id='appraise_num' name='appraise' value='0'>
+			<div class="submit_div">				
+				<button data-action="appraiseSubmit" class="btn btn-success ajax_btn" type="submit">{:L('RELEASE')}</button>
+			</div>
+			</fieldset>
+		</form>
+    </div><!-- .url-img --> 
+</div>
+
+

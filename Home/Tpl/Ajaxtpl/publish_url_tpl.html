@@ -1,0 +1,110 @@
+<div>
+	<!-- 抓取网页图片 -->
+	<div id="website_fetch" class="pbody url-img" data-title="{:L('SCRAPING_IMAGE')}" data-width="800" data-css-class="publish">
+		<form action='{:U("Share/item_fetch",array("act"=>"fetch"))}' method="post" class="enter-content"> 
+			<span>{:L('TIP12')}</span>
+			<input type="text" name="remote_url" class="input-medium" id="remote_url" placeholder="{:L('TIP25')}"/>
+			<button class="btn btn-success" data-action="webFetchSubmit" type="submit">{:L('SCRAPING_START')}</button>
+		</form>
+		<div class="enter-message">
+	    	<span id="ajax_fetch_message"></span>
+	    </div>
+	    <div id="loading" style="display:none;"></div>
+    </div><!-- .url-img -->
+    <div id="local_upload" class="pbody local-img" data-title="{:L('LOCAL_UPLOAD')}" data-width="800" data-css-class="publish" style="display:none;">
+		<div class="enter-content">
+			<div class="file">
+				<button id="item_upload_btn" class="btn btn-success">{:L('upload_pic')}</button>
+			</div>
+			<span>{:L('TIP13')}</span>
+		</div>
+		<div class="input-prepend">
+        	<span id="ajax_upload_message"></span>
+        </div>
+    </div><!-- .local-img -->
+    <div id="create_album" style="display:none" class="pbody url-img album-creation" data-title="{:L('CREATE_ALBUM')}" data-width="800" data-css-class="publish">
+    	<form id="create_album_form" data-url="" next-url="" method="post">
+			<div class="more-info">
+				<div class="category_select_list clearfix">
+					<span class="title">{:L('ALBUM')}</span>
+					<input name="album_title" class="album" type="text" placeholder="{:L('ALBUM_NAME')}" />
+				</div>
+				<div class="category">
+					<div class="category_select_list clearfix" data-init="0">
+						<span class="title">{:L('CATEGORY')}</span>
+			    		<input id="category_select_id" name="category_id" type="hidden" value="0">
+		    			<a href="javascript:void(0);" class="select_btn" data-action="categoryItemPopupShow" data-params="popup"><span class="category_select_title"></span> <span class="caret"></span></a>
+		           	</div>
+					<div class="popup">
+						<ul class="category-content">
+						</ul>
+					</div>
+				</div>
+				<div class="intro clearfix">
+					<span class="title">{:L('INTRODUCE')}</span>
+					<textarea class="large" name='album_desc' placeholder="{:L('TIP14')}"></textarea>
+				</div>				
+			</div>
+			<div class="submit_div">
+				<button id="albumsubmit" class="btn btn-success ajax_btn" type="submit">{:L('RELEASE')}</button>
+			</div>
+		</form>
+    </div>
+
+    <!-- 抓取成功后跳转的页面 -->
+    <div id="image-area" style="display:none"  class="pbody url-img" data-title="{lang create_new}{lang share}" data-width="800" data-css-class="publish">
+		<form id="save_share_form" data-url="" next-url="{:U('index/index')}" method="post">
+			<input type="hidden" name="cover_filename" id="cover_filename">
+			<input type="hidden" name="item_id" id="item_id">
+			<input type="hidden" name="channel" id="channel">
+			<input type="hidden" name="share_type" id="share_type">
+			<input type="hidden" name="reference_url" id="reference_url">
+			<input type="hidden" name="all_files" id="all_files">
+			<input type="hidden" name="flv" id="flv">
+			<input type="hidden" name="groupid" id="groupid">
+			<input type="hidden" name="topicid" id="topicid">
+			<div id="publish_image_list" class="img-info">
+			</div>
+			<div class="more-info">
+				<div class="atlas">
+					<div class="category_select_list clearfix" data-init="0">
+						<span class="title">{:L('ALBUM')}</span>
+			    		<input id="ablum_select_id" name="album_id" type="hidden" value="1">
+		    			<a href="javascript:void(0);" class="select_btn" data-action="albumItemPopup" data-params="popup"><span class="album_select_title">{:L('DEFAULT_ALBUM')}</span> <span class="caret"></span></a>
+		           	</div>
+					<div class="popup">
+						<div class="add_album"><!-- edit by porter 添加创建专辑功能 -->
+							<input class="album_name valid" type="text" data-id="album_name"/><span class="album_select_create btn btn-success" data-params="atlas" data-action="albumPopCreate">{:L('CREATE')}</span>
+						</div>
+						<ul class="atlas-content">
+						</ul>
+					</div>
+				</div>
+				<div class="intro clearfix">
+					<span class="title">{:L('INTRODUCE')}</span>
+					<textarea name='intro' placeholder="{:L('TIP14')}"></textarea>
+				</div>
+				<div class="add-tag">
+					<span id="all-tag" data-action="listTags" data-params="0,tags_list" class="text">添加适合的标签，方便大家找到</span>
+					<div class="more-tag clearfix">
+						<span data-action="closeTag" class="close-tag"></span>					
+						<div class="custom_tag">
+							<input type="text" id="addTag" placeholder="添加自定义标签(小于6个字)" />
+							<em class="btn btn-success disabled">创建</em>
+						</div>
+						<div class="tags clearfix">
+				           <ul class="tags_list" data-target-id="tags-input">
+				           </ul>
+				        </div>
+						<div class="clear"></div>
+						<input type="hidden" name="tags" class="span3" id="tags-input" placeholder="{lang tags}"/>
+					</div>
+				</div>			
+			</div>
+			<div class="submit_div">
+				<button id="editorsubmit" class="btn btn-success ajax_btn" type="submit">{:L('RELEASE')}</button>
+			</div>
+		</form>
+
+    </div><!-- .url-img -->
+</div>

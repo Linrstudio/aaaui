@@ -1,0 +1,87 @@
+<include file="Common:header" />
+<div class="home_page container">
+
+  <div id="slides">
+     <volist name="settings['homeslide']" id="slide">
+      <img src="{:C('SLIDE_PATH')}{$slide['image_url']}">
+    </volist>
+  </div>
+
+  <div class="home_recommend">            
+    <volist name='recommends' id='recommend'>
+      <notempty name="recommend['is_active']">
+        <div class="recommend_title">{$recommend['title']}</div><!-- .recommend_title -->
+        <div class="users">
+          <div class="title">
+            <span>{:L('SUGGESTED_USERS')}</span>
+          </div>
+          <ul>
+            <volist name="recommend['users']" id="user">
+              <li> 
+                <a class="img" target="_blank" href="{:U('User/myAlbums',array('user_id'=>$user['user_id']))}">
+                  <img src="{$user['avatar_local']}{:C('LARGE_AVATAR')}">
+                </a>
+                <div class="info clearfix">
+                  <a class="name" target="_blank" href="{:U('User/myAlbums',array('user_id'=>$user['user_id']))}">{$user['nickname']}</a>
+                  <div class="job">平面设计爱好者</div>
+                  <div class="pin_num">{$user['total_shares']}</div>
+                  <div class="followuser" href="#">
+                    {$user['relationView']}
+                  </div>
+                </div>
+              </li>
+            </volist>
+          </ul>
+        </div><!-- .users -->
+
+        <div class="boards">
+
+          <div class="title">
+            <span>{:L('RECOMMEND_ALBUM')}</span>
+          </div>
+          <ul class="clearfix">
+            <volist name="recommend['albums']" id="album">
+              <li>
+                <div class="images clearfix">
+                  <volist name="album['shares']" id="share" key="k">
+                    <img class="{$k=='1'?'first':''}" src="{$share['image_path']}{:C($k=='1'?'SQUARE_146_PIC':'SQUARE_PIC')}"/>
+                  </volist>
+                </div>
+                <div class="info clearfix">
+                  <a class="board_title" target="_blank" href="{:U('Index/album',array('album_id'=>$album['album_id']))}">
+                    <span>{$album['album_title']}</span>
+                  </a>
+                </div>
+                <a class="name" target="_blank" href="{:U('Index/album',array('album_id'=>$album['album_id']))}">
+                  <span>{$album['nickname']}</span>
+                </a>
+
+                <div class="follow_board">
+                {$album['favoriteAlbum']}
+                </div>
+              </li>
+            </volist>
+          </ul>
+        </div><!-- .boards -->
+        <div class="clear"></div>
+      </notempty>
+    </volist>
+  </div><!-- .home_recommend -->
+  <div class="banner">
+    <a class="img" target="_blank" href="#">
+      <img src="__PUBLIC__/Img/banner.png">
+    </a>
+  </div>
+  <div id="waterfall_outer" data-fullscreen="0">
+    <div id="waterfall" class="masonry clearfix" data-animated="0" data-pin-width="250">
+    	<include file="Waterfall:pin"/>
+    </div>
+  </div>
+  <div class="container">
+    <div id="loadingPins" class="text_c"><img src="__PUBLIC__/Img/puzzle32.gif"></div>
+  </div>
+  <div class="hide">
+    {$show}
+  </div>
+</div><!-- .home_page -->
+<include file="Common:footer" />

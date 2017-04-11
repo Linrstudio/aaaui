@@ -1,0 +1,20 @@
+<span class="edit_like favoriteShare-{$share_id}">
+<switch name="status">
+	<case value="1">
+		<a href="javascript:void(0)" data-action="addLike" data-params="{$share_id}" class="attention">
+			<span class="like">喜欢</span>
+		</a>
+	</case>
+	<case value="2">
+		<a href="javascript:void(0)" data-action="remLike" data-params="{$share_id}" class="attention">
+			<span class="liked">已喜欢</span>
+		</a>
+	</case>
+	<case value="3">
+		<a data-params="{$share_id}" data-action="editOShareOpen" rel="tooltip" class="attention" href="javascript:void(0);">
+			<span class="edit">编辑</span>
+		</a>
+	</case>
+	<default/>
+</switch>
+</span>

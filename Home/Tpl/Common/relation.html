@@ -1,0 +1,37 @@
+<span class="{$relation['friend_id']}-relation">
+<switch name="relation['status']">
+	<case value="0">
+		<a href="javascript:void(0);" data-action="addFollow" data-params="{$relation['friend_id']}" class="relation-box">{:L('ATTENTION')}</a>
+	</case>
+	<case value="1">
+		<a href="javascript:void(0);" data-action="removeFollow" data-params="{$relation['friend_id']}" class="relation-box">
+			<notempty name="is_shop">
+				<span class="view">{:L('HAS_COLLECTED')}</span>
+				<span class="action">{:L('CANCEL_COLLECTION')}</span>
+			<else/>
+				<span class="view">{:L('HAS_ATTENTION')}</span>
+				<span class="action">{:L('CANCEL_ATTENTION')}</span>
+			</notempty>
+		</a>
+	</case>
+	<case value="2">
+		<a href="javascript:void(0);" data-action="addFollow" data-params="{$relation['friend_id']}" class="relation-box">
+			<notempty name="is_shop">
+				<span class="view">{:L('IS_FOLLOW_ME')}</span>
+				<span class="action">{:L('COLLECT_GOODSHOP')}</span>
+			<else/>
+				<span class="view">{:L('IS_FOLLOW_ME')}</span>
+				<span class="action">{:L('ATTENTION')}</span>
+			</notempty>
+		</a>
+	</case>
+	<case value="3">
+		<a href="javascript:void(0);" data-action="removeFollow" data-params="{$relation['friend_id']}" class="relation-box">
+			<span class="view">{:L('FOCUS')}</span>
+			<span class="action">{:L('CANCEL_ATTENTION')}</span>
+		</a>
+	</case>
+	<default/>
+		<a href="javascript:void(0);" class="relation-box">{:L('ME')}</a>
+</switch>
+</span>

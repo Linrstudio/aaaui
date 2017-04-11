@@ -1,0 +1,40 @@
+<include file="Common:header" />
+
+<div class="container">
+	<include file="Index:search_controller" />
+
+	<div class="container clearfix">
+		<volist name="shops" id="shop">
+			<div class="pin home-album">
+				<div class="album-header">
+					<a href="{:U('Goodshop/shares',array('shop_id'=>$shop['shop_id']))}" class="clearfix">
+						<span class="title">{$shop['store_name']}</span>
+					</a>
+				</div>
+				<div class="images clearfix">
+					<a href="{:U('Goodshop/shares',array('shop_id'=>$shop['shop_id']))}">				
+						<span class="first">
+							<img src="{$shop['shop_logo']}{:C('LARGE_AVATAR')}">
+						</span>
+						<volist name="shop['shares']" id="share" key="k">
+							<if condition="$k eq 4">
+								<span class="last">
+									<img src="{$share['image_path']}{:C('SQUARE_PIC')}">
+								</span>
+							<else/>
+								<span>
+									<img src="{$share['image_path']}{:C('SQUARE_PIC')}">
+								</span>
+							</if>
+						</volist>
+					</a>
+				</div>
+			</div>
+		</volist>
+		<div class="clear"></div>
+	  	<div class="pagination pagination-centered">{$show}</div>
+	</div>
+</div>
+
+
+<include file="Common:footer" />

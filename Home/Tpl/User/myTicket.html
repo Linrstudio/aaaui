@@ -1,0 +1,68 @@
+<include file="User:userHeader" />
+
+<div class="container">
+	<div class="personal-homepage">
+		<div class="shopset_content">
+			<div class="nav">
+				<a href="{:U('User/myOrder')}">订单</a>&nbsp;&nbsp;/&nbsp;
+				<a class="active" href="javascript:void(0);">优惠券</a>
+			</div>
+			<table class="tab_list text_c">
+				<tbody>
+					<tr class="banner">
+						<td colspan="6">
+							<span style="float:left;">
+								<b style="font-size:16px;">优惠券信息</b>
+							</span>							
+						</td>
+					</tr>
+					<tr>
+					<th width="15%">
+						订单号
+					</th>
+					<th width="15%">
+						消费券号码
+					</th>
+					<th width="15%">
+						消费券密码
+					</th>
+					<th width="15%">
+						所属商家
+					</th>
+					<th width="20%">
+						商品名称
+					</th>
+					<th width="20%">
+						使用时间
+					</th>
+				</tr>
+				<volist name='ticketList' id='ticket'>
+					<tr class="text_c">
+						<td>
+							{$ticket.order_id}
+						</td>
+						<td>
+							{$ticket.number}
+						</td>
+						<td>
+							{$ticket.password}
+						</td>
+						<td>
+							{$ticket.name}
+						</td>
+						<td>
+							{$ticket.project_name}
+						</td>
+						<td>
+							{$ticket.usetime}
+						</td>
+					</tr>
+				</volist>
+			</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+
+<include file="Common:footer" />

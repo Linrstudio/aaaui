@@ -1,0 +1,48 @@
+<div>
+	<div class="pbody" data-title="{:L('Login_brick')}" data-width="600" data-css-class="">
+		<div class="leftcontent">
+			<div id="loginTabContent" class="tab-content">
+				<div class="tab-pane fade active in" id="ptx_login">
+				<form id="login_form" method="post" class="form-horizontal">
+					<fieldset>
+						<div class="control-group">
+				            <label class="control-label" for="email">{:L('EMAIL')}</label>
+				            <div class="controls">
+				                <input id="email" type="text" name="email">
+				            </div>
+				        </div>
+						<div class="control-group">
+				            <label class="control-label" for="password">{:L('USER_PASSWORD')}</label>
+				            <div class="controls">
+				               	<input id="password" type="password" name="password">
+				            </div>
+				        </div>			        
+				        
+						<div class="control-group hide"><!--自动登录,忘记密码先隐藏-->
+				            <label class="control-label"  for="is_remember"></label>
+				            <div class="controls">
+				               	<label style="display:none;" class="checkbox">
+					                <input id="is_remember" name="is_remember" type="checkbox" value="1" checked="checked">
+					                {:L('AUTOMATIC_LOGIN')}
+					            </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;			            
+				            </div>
+				        </div>
+				        <div class="control-group">
+				        	<label class="control-label"></label>
+				            <div class="controls">
+				           	 	<button type="submit" class="btn btn-success ajax_btn">{:L('LOGIN')}</button>
+				           	 	&nbsp;&nbsp;<a href="{:U('Account/forget')}">{:L('FORGOT_PASSWORD')}</a>
+				            </div>
+				        </div>
+					</fieldset>
+				</form>
+				</div>				
+			</div>
+		</div>
+		<div class="rightcontent">
+			<ul class="unstyled">
+				<li><strong>{:L('TIP11')}</strong> {:L('OR')} <strong><a class="nav_button" href="{:U('Account/register')}">{:L('REGISTERED')}</a></strong></li>
+			</ul>
+		</div>
+	</div>
+</div>

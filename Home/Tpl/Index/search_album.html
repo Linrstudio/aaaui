@@ -1,0 +1,47 @@
+<include file="Common:header" />
+
+<div class="container">
+	<include file="Index:search_controller" />
+
+	<div class="container clearfix">
+		<volist name="albums" id="album">
+			<div class="pin home-album">
+				<div class="album-header">
+					<a href="#" class="clearfix">
+						<img src="{$album['avatar_local']}{:C('MIDDLE_AVATAR')}" class="user_img">
+						<span class="title">{$album['album_title']}</span>
+						<span class="user_name">{$album['nickname']}</span>
+					</a>
+				</div>			
+				<div class="images clearfix">
+					<span>{$album['total_share']}{:L('GATHER')}</span>
+					<a href="{:U('Index/album',array('album_id'=>$album['album_id']))}">				
+						<volist name="album['shares']" id="share" key="k">
+							<if condition="$k eq 1">
+								<span class="first">
+									<img src="{$share['image_path']}{:C('MIDDLE_PIC')}">
+								</span>
+							<elseif condition="$k eq 5"/>
+								<span class="last">
+									<img src="{$share['image_path']}{:C('SQUARE_PIC')}">
+								</span>
+							<else/>
+								<span>
+									<img src="{$share['image_path']}{:C('SQUARE_PIC')}">
+								</span>
+							</if>
+						</volist>
+					</a>
+				</div>
+				<div class="album-footer">
+					<a class="follow_album" href="#">{:L('CANCEL_ATTENTION')}</a>
+				</div>
+			</div>
+		</volist>
+		<div class="clear"></div>
+	  	<div class="pagination pagination-centered">{$show}</div>
+	</div>
+</div>
+
+
+<include file="Common:footer" />

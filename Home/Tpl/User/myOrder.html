@@ -1,0 +1,95 @@
+<include file="User:userHeader" />
+
+<div class="container">
+	<div class="personal-homepage">
+		<div class="shopset_content">
+			<div class="nav">
+				<a class="active" href="javascript:void(0);">订单</a>&nbsp;&nbsp;/&nbsp;
+				<a href="{:U('User/myTicket')}">优惠券</a>
+			</div>
+			<table class="tab_list text_c">
+				<tbody>
+					<tr class="banner">
+						<td colspan="7">
+							<span style="float:left;">
+								<b style="font-size:16px;">订单信息</b>
+							</span>							
+						</td>
+					</tr>
+					<tr>
+						<th width="15%">
+							订单号
+						</th>
+						<th width="15%">
+							订单项目
+						</th>
+						<th width="10%">
+							订单金额
+						</th>
+						<th width="10%">
+							数量
+						</th>						
+						<th width="15%">
+							订单状态
+						</th>
+						<th width="15%">
+							订单时间
+						</th>
+						<th width="20%">
+							操作
+						</th>
+					</tr>
+					<volist name='orderList' id='order'>
+						<tr>
+							<td>
+								{$order.order_id}
+							</td>
+							<td>
+								{$order.project_name}
+							</td>
+							<td>
+								{$order.ordfee}
+							</td>
+							<td>
+								{$order.ordbuynum}
+							</td>
+							<td>
+								{$order.status_name}
+							</td>
+							<td>
+								{$order.order_time}
+							</td>
+							<td>
+								<if condition="$order['ordstatus'] eq 0"><a href="{:U('Order/orderSubmit',array('order_id'=> $order['order_id']))}" class='btn'>付款</a> &nbsp; </if><button class='del btn' shop_id="{$order['shop_id']}" id="{$order['order_id']}">删除</button>
+							</td>
+						</tr>
+					</volist>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+
+<include file="Common:footer" />
+
+<script type="text/javascript">
+$('.del').click(function() {
+	var shop_id = $(this).attr('shop_id');
+	var order_id = $(this).attr('id');
+	$.ajax({
+		url: "{:U('Order/orderDelete')}",
+		type: 'post',
+		data: {order_id : order_id,shop_id : shop_id},
+		dataType: 'json',
+		success: function(result){
+	   	  if (result.success) {
+              showSuccess(result.message,true);
+          }else{
+              showError(result.message); 
+          };
+		}
+	})
+	return false;
+});	
+</script>

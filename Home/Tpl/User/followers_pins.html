@@ -1,0 +1,23 @@
+<include file="Common:header" />
+
+<div class="container">
+	<div class="searchinfobar clearfix">
+		<a class="active" href="{:U('User/followers_pins')}">{:L('PIN')}</a>
+		<a href="{:U('User/followers_albums')}">{:L('ALBUM')}</a>
+		<a href="#" style="display:none;">{:L('SHOP')}</a>
+	</div>
+
+	<div id="waterfall_outer">
+		<div id="waterfall" class="masonry" data-animated="0" data-pin-width="250">
+			<include file="Waterfall:pin"/>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div id="loadingPins" class="text_c"><img src="__PUBLIC__/Img/puzzle32.gif"></div>
+</div>
+<div class="hide">
+	{$show}
+</div>
+
+<include file="Common:footer" />
